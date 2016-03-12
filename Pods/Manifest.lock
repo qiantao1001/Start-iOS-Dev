@@ -1,0 +1,13 @@
+PODS:
+  - Alamofire (3.1.4)
+  - Toucan (0.4.3)
+
+DEPENDENCIES:
+  - Alamofire (~> 3.0)
+  - Toucan
+
+SPEC CHECKSUMS:
+  Alamofire: fbc829692f351fa1d8a31dd75fd7f7f56fea31fb
+  Toucan: 3e2319c8fb9c7a2fb9c30f6d4ecdc6b8a2f1c92b
+
+COCOAPODS: 0.39.0

@@ -12,6 +12,7 @@
 		25A7C7051C911E330001C8BE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25A7C7031C911E330001C8BE /* Main.storyboard */; };
 		25A7C7071C911E330001C8BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25A7C7061C911E330001C8BE /* Assets.xcassets */; };
 		25A7C70A1C911E330001C8BE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25A7C7081C911E330001C8BE /* LaunchScreen.storyboard */; };
+		FE43C5856D116DC5EFE6AF3F /* Pods_startiosdev.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB7D34D19CCA2D892DA789E8 /* Pods_startiosdev.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,9 @@
 		25A7C7061C911E330001C8BE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		25A7C7091C911E330001C8BE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		25A7C70B1C911E330001C8BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		34A6E52B7F66B3961831AE39 /* Pods-startiosdev.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-startiosdev.release.xcconfig"; path = "Pods/Target Support Files/Pods-startiosdev/Pods-startiosdev.release.xcconfig"; sourceTree = "<group>"; };
+		56C70E2488D814B87D798E9B /* Pods-startiosdev.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-startiosdev.debug.xcconfig"; path = "Pods/Target Support Files/Pods-startiosdev/Pods-startiosdev.debug.xcconfig"; sourceTree = "<group>"; };
+		CB7D34D19CCA2D892DA789E8 /* Pods_startiosdev.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_startiosdev.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE43C5856D116DC5EFE6AF3F /* Pods_startiosdev.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +45,8 @@
 			children = (
 				25A7C6FE1C911E330001C8BE /* startiosdev */,
 				25A7C6FD1C911E330001C8BE /* Products */,
+				A33C691E177299F7DAC17909 /* Pods */,
+				FAE36C608EE6BE35C67A4175 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +71,23 @@
 			path = startiosdev;
 			sourceTree = "<group>";
 		};
+		A33C691E177299F7DAC17909 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				56C70E2488D814B87D798E9B /* Pods-startiosdev.debug.xcconfig */,
+				34A6E52B7F66B3961831AE39 /* Pods-startiosdev.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		FAE36C608EE6BE35C67A4175 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CB7D34D19CCA2D892DA789E8 /* Pods_startiosdev.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -71,9 +95,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 25A7C70E1C911E340001C8BE /* Build configuration list for PBXNativeTarget "startiosdev" */;
 			buildPhases = (
+				23EC703D8045E9A47B821977 /* Check Pods Manifest.lock */,
 				25A7C6F81C911E330001C8BE /* Sources */,
 				25A7C6F91C911E330001C8BE /* Frameworks */,
 				25A7C6FA1C911E330001C8BE /* Resources */,
+				8E2CBB5B1B50A2D0C42B5CDF /* Embed Pods Frameworks */,
+				77055D9561709D7A0220CB8A /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -130,6 +157,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		23EC703D8045E9A47B821977 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		77055D9561709D7A0220CB8A /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-startiosdev/Pods-startiosdev-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8E2CBB5B1B50A2D0C42B5CDF /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-startiosdev/Pods-startiosdev-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		25A7C6F81C911E330001C8BE /* Sources */ = {
@@ -248,6 +323,7 @@
 		};
 		25A7C70F1C911E340001C8BE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 56C70E2488D814B87D798E9B /* Pods-startiosdev.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -260,6 +336,7 @@
 		};
 		25A7C7101C911E340001C8BE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34A6E52B7F66B3961831AE39 /* Pods-startiosdev.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
