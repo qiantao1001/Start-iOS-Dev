@@ -16,6 +16,8 @@ class ViewController: UICollectionViewController {
     var setWMButton: UIButton?
     var onekeyWMButton: UIButton?
     var infoWMButton: UIButton?
+    var albumSwitch: UIButton?
+    var logo: UIImage?
     
     init() {
         let layout = UICollectionViewFlowLayout()
@@ -31,6 +33,11 @@ class ViewController: UICollectionViewController {
         
         infoWMButton = UIButton()
         infoWMButton?.setImage(UIImage(named: "InfoWMButtonIcon"), forState: UIControlState.Normal)
+        
+        albumSwitch = UIButton()
+        albumSwitch?.setImage(UIImage(named: "AlbumSwitchWMButtonIcon"), forState: UIControlState.Normal)
+        
+        logo = UIImage(named: "Logo")
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -73,30 +80,55 @@ class ViewController: UICollectionViewController {
         
         coverView.snp_makeConstraints { (make) -> Void in
             make.top.left.right.equalTo(self.view)
-            make.height.equalTo(self.view).multipliedBy(1 - 0.618)
+            make.height.equalTo(self.view).multipliedBy(0.5)
+        }
+        
+        // Add line
+        let line = CVLine()
+        coverView.addSubview(line)
+        line.snp_makeConstraints { (make) -> Void in
+            make.bottom.left.right.equalTo(coverView)
+            make.height.equalTo(coverView).multipliedBy(0.15)
+        }
+        
+        // Add logo
+        let logoView = UIImageView(image: logo!)
+        coverView.addSubview(logoView)
+        logoView.snp_makeConstraints { (make) -> Void in
+            make.centerX.equalTo(coverView)
+            make.top.equalTo(coverView).offset(100)
         }
         
         // Add buttons
-        self.view.addSubview(setWMButton!)
+        coverView.addSubview(setWMButton!)
         setWMButton!.addTarget(self, action: Selector("setWaterMark"), forControlEvents: UIControlEvents.TouchUpInside)
         setWMButton!.snp_makeConstraints { (make) -> Void in
             make.left.equalTo(coverView).inset((self.view.frame.width/3 - setWMButton!.frame.width)/2)
-            make.bottom.equalTo(coverView).inset(20)
+            make.bottom.equalTo(line.snp_top).offset(-20)
         }
         
-        self.view.addSubview(onekeyWMButton!)
+        coverView.addSubview(onekeyWMButton!)
         onekeyWMButton!.addTarget(self, action: "onekeyWaterMark", forControlEvents: UIControlEvents.TouchUpInside)
         onekeyWMButton!.snp_makeConstraints { (make) -> Void in
             make.centerX.equalTo(coverView)
-            make.bottom.equalTo(coverView).inset(20)
+            make.bottom.equalTo(line.snp_top).offset(-20)
         }
         
-        self.view.addSubview(infoWMButton!)
+        coverView.addSubview(infoWMButton!)
         infoWMButton!.addTarget(self, action: "infoWaterMark", forControlEvents: UIControlEvents.TouchUpInside)
         infoWMButton!.snp_makeConstraints { (make) -> Void in
             make.right.equalTo(coverView).inset((self.view.frame.width/3 - infoWMButton!.frame.width)/2)
-            make.bottom.equalTo(coverView).inset(20)
+            make.bottom.equalTo(line.snp_top).offset(-20)
         }
+        
+        line.addSubview(albumSwitch!)
+        albumSwitch!.addTarget(self, action: "switchAlbum", forControlEvents: UIControlEvents.TouchUpInside)
+        albumSwitch!.snp_makeConstraints { (make) -> Void in
+            make.center.equalTo(line.snp_center)
+        }
+        
+        
+        
         /*
         // Add buttonLayer
         let buttonView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.Dark))
@@ -138,6 +170,10 @@ class ViewController: UICollectionViewController {
     func infoWaterMark() {
         print("infoWoaterMark")
         presentViewController(TestViewController(), animated: true, completion: nil)
+    }
+    
+    func switchAlbum() {
+    
     }
     // MARK: UICollectionViewDataSource
     
