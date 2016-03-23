@@ -9,7 +9,35 @@
 import UIKit
 import SnapKit
 
-class ViewController: UIViewController {
+private let reuseIdentifier = "Cell"
+
+class ViewController: UICollectionViewController {
+    
+    var setWMButton: UIButton?
+    var onekeyWMButton: UIButton?
+    var infoWMButton: UIButton?
+    
+    init() {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = UICollectionViewScrollDirection.Vertical
+        super.init(collectionViewLayout: layout)
+        
+        // init buttons
+        setWMButton = UIButton()
+        setWMButton?.setImage(UIImage(named: "SetWMButtonIcon"), forState: UIControlState.Normal)
+        
+        onekeyWMButton = UIButton()
+        onekeyWMButton?.setImage(UIImage(named: "OnekeyWMButtonIcon"), forState: UIControlState.Normal)
+        
+        infoWMButton = UIButton()
+        infoWMButton?.setImage(UIImage(named: "InfoWMButtonIcon"), forState: UIControlState.Normal)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = UICollectionViewScrollDirection.Vertical
+        super.init(collectionViewLayout: layout)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,44 +58,54 @@ class ViewController: UIViewController {
     
     func initLayout()
     {
-        // Add Backgroud
-        let backgroundView = UIView()
-        backgroundView.backgroundColor = UIColor(colorLiteralRed: 32/255, green: 32/255, blue: 32/255, alpha: 1)
-        self.view.addSubview(backgroundView)
-        
-        backgroundView.snp_makeConstraints { (make) -> Void in
-            make.edges.equalTo(self.view)
-        }
-        
-        // Add testImage
-        let picMap = UIImage(imageLiteral: "TestImage.png")
-        let picMapView = UIImageView()
-        picMapView.image = picMap
-        picMapView.contentMode = UIViewContentMode.ScaleAspectFit
-        backgroundView.addSubview(picMapView)
-        
-        picMapView.snp_makeConstraints { (make) -> Void in
-            make.edges.equalTo(backgroundView)
-        }
+        // Add UICollectionView
+        self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        self.collectionView!.delegate = self
+        self.collectionView!.dataSource = self
+        self.collectionView!.backgroundColor = UIColor(colorLiteralRed: 32/255, green: 32/255, blue: 32/255, alpha: 1)
+        self.collectionView!.showsVerticalScrollIndicator = false
+        self.collectionView!.transform = CGAffineTransformMakeScale(1, -1)
         
         // Add coverLayer
         let coverView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.Dark))
         coverView.backgroundColor = UIColor(colorLiteralRed: 48/255, green: 48/255, blue: 48/255, alpha: 0.8)
-        backgroundView.addSubview(coverView)
+        self.view.addSubview(coverView)
         
         coverView.snp_makeConstraints { (make) -> Void in
-            make.top.left.right.equalTo(backgroundView)
-            make.height.equalTo(backgroundView).multipliedBy(1 - 0.618)
+            make.top.left.right.equalTo(self.view)
+            make.height.equalTo(self.view).multipliedBy(1 - 0.618)
         }
         
+        // Add buttons
+        self.view.addSubview(setWMButton!)
+        setWMButton!.addTarget(self, action: Selector("setWaterMark"), forControlEvents: UIControlEvents.TouchUpInside)
+        setWMButton!.snp_makeConstraints { (make) -> Void in
+            make.left.equalTo(coverView).inset((self.view.frame.width/3 - setWMButton!.frame.width)/2)
+            make.bottom.equalTo(coverView).inset(20)
+        }
+        
+        self.view.addSubview(onekeyWMButton!)
+        onekeyWMButton!.addTarget(self, action: "onekeyWaterMark", forControlEvents: UIControlEvents.TouchUpInside)
+        onekeyWMButton!.snp_makeConstraints { (make) -> Void in
+            make.centerX.equalTo(coverView)
+            make.bottom.equalTo(coverView).inset(20)
+        }
+        
+        self.view.addSubview(infoWMButton!)
+        infoWMButton!.addTarget(self, action: "infoWaterMark", forControlEvents: UIControlEvents.TouchUpInside)
+        infoWMButton!.snp_makeConstraints { (make) -> Void in
+            make.right.equalTo(coverView).inset((self.view.frame.width/3 - infoWMButton!.frame.width)/2)
+            make.bottom.equalTo(coverView).inset(20)
+        }
+        /*
         // Add buttonLayer
         let buttonView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.Dark))
         buttonView.backgroundColor = UIColor(colorLiteralRed: 48/255, green: 48/255, blue: 48/255, alpha: 0.8)
-        backgroundView.addSubview(buttonView)
+        self.view.addSubview(buttonView)
         
         buttonView.snp_makeConstraints { (make) -> Void in
-            make.bottom.left.right.equalTo(backgroundView)
-            make.height.equalTo(backgroundView).multipliedBy(0.094)
+            make.bottom.left.right.equalTo(self.view)
+            make.height.equalTo(self.view).multipliedBy(0.094)
         }
         
         // Add guide text
@@ -82,9 +120,65 @@ class ViewController: UIViewController {
         guideLabel.snp_makeConstraints { (make) -> Void in
             make.center.equalTo(buttonView)
         }
+        */
         
     }
+    
+    // MARK: functions
+    func setWaterMark() {
+        print("setWaterMark")
+        presentViewController(TestViewController(), animated: true, completion: nil)
+    }
+    
+    func onekeyWaterMark() {
+        print("onekeyWaterMark")
+        presentViewController(TestViewController(), animated: true, completion: nil)
+    }
+    
+    func infoWaterMark() {
+        print("infoWoaterMark")
+        presentViewController(TestViewController(), animated: true, completion: nil)
+    }
+    // MARK: UICollectionViewDataSource
+    
+    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+    
+    
+    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of items
+        return 100
+    }
+    
+    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath)
+        
+        // Configure the cell
+        let cellColor = UIColor(red: CGFloat(arc4random() % 100)/100, green: CGFloat(arc4random() % 100)/100, blue: CGFloat(arc4random() % 100)/100, alpha: 1.0)
+        cell.backgroundColor = cellColor
+        cell.contentView.transform = CGAffineTransformMakeScale(1, -1)
+        
+        return cell
+    }
 
+}
+
+
+extension ViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 5;
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        let sideLength = CGFloat((self.collectionView!.frame.width - 15) / 4)
+        return CGSizeMake(sideLength, sideLength)
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 5.0
+    }
 }
 
 
