@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2514CE381CA262B3009F6884 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2514CE371CA262B3009F6884 /* TestViewController.swift */; };
+		254E703F1CA28EC500290B97 /* CVLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254E703E1CA28EC500290B97 /* CVLine.swift */; };
 		25A7C7001C911E330001C8BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A7C6FF1C911E330001C8BE /* AppDelegate.swift */; };
 		25A7C7071C911E330001C8BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25A7C7061C911E330001C8BE /* Assets.xcassets */; };
 		25C3881B1CA0DE0300C559DF /* Youyuan.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 25C3881A1CA0DE0300C559DF /* Youyuan.ttf */; };
@@ -19,6 +20,7 @@
 
 /* Begin PBXFileReference section */
 		2514CE371CA262B3009F6884 /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		254E703E1CA28EC500290B97 /* CVLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CVLine.swift; sourceTree = "<group>"; };
 		25A7C6FC1C911E330001C8BE /* startiosdev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = startiosdev.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		25A7C6FF1C911E330001C8BE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		25A7C7061C911E330001C8BE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 		25C3881F1CA0E85100C559DF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				254E703E1CA28EC500290B97 /* CVLine.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -266,6 +269,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				254E703F1CA28EC500290B97 /* CVLine.swift in Sources */,
 				25C388201CA0E85100C559DF /* ViewController.swift in Sources */,
 				2514CE381CA262B3009F6884 /* TestViewController.swift in Sources */,
 				25A7C7001C911E330001C8BE /* AppDelegate.swift in Sources */,
