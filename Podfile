@@ -6,5 +6,6 @@ target 'startiosdev' do
     pod 'Alamofire', '~> 3.0'
     pod 'Toucan'
     pod 'SnapKit'
+    pod 'EasyAnimation'
 end
 

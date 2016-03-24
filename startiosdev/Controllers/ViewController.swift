@@ -18,6 +18,9 @@ class ViewController: UICollectionViewController {
     var infoWMButton: UIButton?
     var albumSwitch: UIButton?
     var logo: UIImage?
+    var switchState: Bool = false
+    var albumsView: UIVisualEffectView?
+    var albumlist: CVAlbumList?
     
     init() {
         let layout = UICollectionViewFlowLayout()
@@ -35,7 +38,11 @@ class ViewController: UICollectionViewController {
         infoWMButton?.setImage(UIImage(named: "InfoWMButtonIcon"), forState: UIControlState.Normal)
         
         albumSwitch = UIButton()
-        albumSwitch?.setImage(UIImage(named: "AlbumSwitchWMButtonIcon"), forState: UIControlState.Normal)
+        albumSwitch?.setTitle("所有照片", forState: UIControlState.Normal)
+        albumSwitch?.titleLabel?.textColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 0.5)
+        albumSwitch?.titleLabel?.textAlignment = NSTextAlignment.Center
+        albumSwitch?.titleLabel?.font = UIFont.systemFontOfSize(14)
+        albumSwitch?.alpha = 0.5
         
         logo = UIImage(named: "Logo")
     }
@@ -77,7 +84,6 @@ class ViewController: UICollectionViewController {
         let coverView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.Dark))
         coverView.backgroundColor = UIColor(colorLiteralRed: 48/255, green: 48/255, blue: 48/255, alpha: 0.8)
         self.view.addSubview(coverView)
-        
         coverView.snp_makeConstraints { (make) -> Void in
             make.top.left.right.equalTo(self.view)
             make.height.equalTo(self.view).multipliedBy(0.5)
@@ -127,33 +133,24 @@ class ViewController: UICollectionViewController {
             make.center.equalTo(line.snp_center)
         }
         
-        
-        
-        /*
-        // Add buttonLayer
-        let buttonView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.Dark))
-        buttonView.backgroundColor = UIColor(colorLiteralRed: 48/255, green: 48/255, blue: 48/255, alpha: 0.8)
-        self.view.addSubview(buttonView)
-        
-        buttonView.snp_makeConstraints { (make) -> Void in
-            make.bottom.left.right.equalTo(self.view)
-            make.height.equalTo(self.view).multipliedBy(0.094)
+        // Add albums list
+        albumsView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.Dark))
+        albumsView?.backgroundColor = UIColor(red: 48/255, green: 48/255, blue: 48/255, alpha: 0.8)
+        albumsView?.hidden = true
+        self.view.addSubview(albumsView!)
+        albumsView?.snp_makeConstraints(closure: { (make) -> Void in
+            make.left.bottom.right.equalTo(self.view)
+            make.height.equalTo(self.view).multipliedBy(0.5)
+        })
+        albumlist = CVAlbumList()
+        albumlist?.delegate = self
+        albumlist?.dataSource = self
+        albumsView?.addSubview(albumlist!)
+        albumlist?.snp_makeConstraints { (make) -> Void in
+            make.center.equalTo(albumsView!.snp_center)
+            make.top.bottom.equalTo(albumsView!)
+            make.width.equalTo(albumsView!).multipliedBy(0.3)
         }
-        
-        // Add guide text
-        let guideLabel = UILabel()
-        guideLabel.text = "选 择 图 片"
-        guideLabel.textAlignment = .Center
-        guideLabel.textColor = UIColor(colorLiteralRed: 235/255, green: 235/255, blue: 235/255, alpha: 0.5)
-        //guideLabel.font = UIFont(name: "YouYuan", size: 24)
-        guideLabel.font = UIFont.boldSystemFontOfSize(20)
-        buttonView.addSubview(guideLabel)
-        
-        guideLabel.snp_makeConstraints { (make) -> Void in
-            make.center.equalTo(buttonView)
-        }
-        */
-        
     }
     
     // MARK: functions
@@ -173,7 +170,32 @@ class ViewController: UICollectionViewController {
     }
     
     func switchAlbum() {
+        print("switchAlbum")
+        
+        if switchState == false {
+            albumlist?.reloadData()
+            showAlbumTable()
+        }
+        else {
+            hideAlbumTable()
+        }
+    }
     
+    func showAlbumTable() {
+        albumsView?.hidden = false
+        albumsView?.becomeFirstResponder()
+        switchState = true
+    }
+    
+    func hideAlbumTable() {
+        albumsView?.resignFirstResponder()
+        albumsView?.hidden = true
+        switchState = false
+    }
+    
+    func changeAlbumName(name:String) {
+        print(name)
+        albumSwitch?.setTitle(name, forState: UIControlState.Normal)
     }
     // MARK: UICollectionViewDataSource
     
@@ -214,6 +236,45 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
         return 5.0
+    }
+}
+
+extension ViewController: UITableViewDelegate {
+    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        changeAlbumName((tableView.cellForRowAtIndexPath(indexPath)?.textLabel?.text)!)
+        switchAlbum()
+    }
+}
+
+extension ViewController: UITableViewDataSource {
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 20
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(frame: CGRectMake(0, 0, self.view.frame.width, 50))
+        cell.backgroundColor = UIColor.clearColor()
+        if indexPath.row == 0 {
+            cell.textLabel?.text = "所有照片"
+        }else {
+            cell.textLabel?.text = "相册\(indexPath.row)"
+        }
+        cell.textLabel?.font = UIFont.systemFontOfSize(16)
+        cell.textLabel?.textAlignment = NSTextAlignment.Center
+        cell.textLabel?.textColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 0.5)
+        cell.selectionStyle = UITableViewCellSelectionStyle.None
+
+        return cell
     }
 }
 
