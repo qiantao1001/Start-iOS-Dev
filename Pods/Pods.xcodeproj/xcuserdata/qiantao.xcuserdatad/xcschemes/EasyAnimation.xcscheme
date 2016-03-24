@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '0D9E34B2838F43384BD84DEA'
-               BlueprintName = 'SnapKit'
+               BlueprintIdentifier = '17FB6BA73C4F3ECCD204C844'
+               BlueprintName = 'EasyAnimation'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'SnapKit.framework'>
+               BuildableName = 'EasyAnimation.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

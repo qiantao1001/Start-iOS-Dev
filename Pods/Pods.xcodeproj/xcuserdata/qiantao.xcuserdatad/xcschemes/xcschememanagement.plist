@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>EasyAnimation.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-startiosdev.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -27,22 +32,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0125F67A8DFBB51775D13243F5893149</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>432ECC54282C84882B482CCB4CF227FC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7FD8A3AF4AF8EF9C094ECDDF9335336E</key>
+		<key>6379CFBAD676A3D218886BF292C0E6A0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>95FFF773329EAAD122E1480E0E5A8B0A</key>
+		<key>A376E868ED408EE8EEBD1DDBCE639EF5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C02FD7966C1676B1158DC1DF2AC424B8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CE5D399C693091DD1F48F288ED7A9AE6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
