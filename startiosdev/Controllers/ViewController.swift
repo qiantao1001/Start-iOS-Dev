@@ -8,11 +8,22 @@
 
 import UIKit
 import SnapKit
+import Photos
+import PhotosUI
 
 private let reuseIdentifier = "Cell"
 
 class ViewController: UICollectionViewController {
-    
+    var imageArray: [Int] = {
+        
+        var array: [Int] = []
+        
+        for i in 0...Camera().count-1 {
+            array.append(i)
+        }
+        
+        return array
+    }()
     var setWMButton: UIButton?
     var onekeyWMButton: UIButton?
     var infoWMButton: UIButton?
@@ -21,6 +32,7 @@ class ViewController: UICollectionViewController {
     var switchState: Bool = false
     var albumsView: UIVisualEffectView?
     var albumlist: CVAlbumList?
+    
     
     init() {
         let layout = UICollectionViewFlowLayout()
@@ -43,16 +55,15 @@ class ViewController: UICollectionViewController {
         albumSwitch?.titleLabel?.textAlignment = NSTextAlignment.Center
         albumSwitch?.titleLabel?.font = UIFont.systemFontOfSize(14)
         albumSwitch?.alpha = 0.5
-        
         logo = UIImage(named: "Logo")
     }
-
     required init?(coder aDecoder: NSCoder) {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = UICollectionViewScrollDirection.Vertical
         super.init(collectionViewLayout: layout)
     }
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -62,23 +73,28 @@ class ViewController: UICollectionViewController {
         
         initLayout()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     // MARK: Functions
     
     func initLayout()
     {
         // Add UICollectionView
-        self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        self.collectionView!.registerClass(ImageTextCell.self, forCellWithReuseIdentifier: "ImageTextCell")
         self.collectionView!.delegate = self
         self.collectionView!.dataSource = self
-        self.collectionView!.backgroundColor = UIColor(colorLiteralRed: 32/255, green: 32/255, blue: 32/255, alpha: 1)
+        
         self.collectionView!.showsVerticalScrollIndicator = false
         self.collectionView!.transform = CGAffineTransformMakeScale(1, -1)
+        
+        
+        
+        
+        
         
         // Add coverLayer
         let coverView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.Dark))
@@ -106,6 +122,7 @@ class ViewController: UICollectionViewController {
         }
         
         // Add buttons
+        
         coverView.addSubview(setWMButton!)
         setWMButton!.addTarget(self, action: Selector("setWaterMark"), forControlEvents: UIControlEvents.TouchUpInside)
         setWMButton!.snp_makeConstraints { (make) -> Void in
@@ -198,6 +215,14 @@ class ViewController: UICollectionViewController {
         albumSwitch?.setTitle(name, forState: UIControlState.Normal)
     }
     // MARK: UICollectionViewDataSource
+    func NumberofCameraPhotos()->Int {
+        let albums=PHAssetCollection.fetchAssetCollectionsWithType(PHAssetCollectionType.SmartAlbum, subtype: PHAssetCollectionSubtype.SmartAlbumUserLibrary, options: nil)
+        let collection=albums[0] as! PHAssetCollection
+        let Assets=PHAsset.fetchAssetsInAssetCollection(collection, options: PHFetchOptions?.init())
+        var NumbersofCameraPhotos = Assets.count
+        return NumbersofCameraPhotos
+        
+    }
     
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -207,26 +232,79 @@ class ViewController: UICollectionViewController {
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 100
+        return NumberofCameraPhotos()
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath)
         
-        // Configure the cell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ImageTextCell", forIndexPath: indexPath) as! ImageTextCell
+        let photos=Camera()
         let cellColor = UIColor(red: CGFloat(arc4random() % 100)/100, green: CGFloat(arc4random() % 100)/100, blue: CGFloat(arc4random() % 100)/100, alpha: 1.0)
-        cell.backgroundColor = cellColor
-        cell.contentView.transform = CGAffineTransformMakeScale(1, -1)
-        
+        cell.backgroundColor = UIColor.init(patternImage: photos[0])
+        cell.contentView.transform = CGAffineTransformMakeScale(1, 1)
+        cell.imageID=self.imageArray[indexPath.item]
         return cell
     }
-
+    
 }
+func Camera()->[UIImage]{
+    let albums=PHAssetCollection.fetchAssetCollectionsWithType(.SmartAlbum, subtype: PHAssetCollectionSubtype.SmartAlbumUserLibrary, options: PHFetchOptions?.init())
+    let collection=albums[0] as! PHAssetCollection
+    print(albums.count)
+    let assets=PHAsset.fetchAssetsInAssetCollection(collection, options: PHFetchOptions?.init())
+    print(assets.count)
+    let numbersofphotos=assets.count
+    var Image:[UIImage]=[]
+    var img:UIImage?
+    for i in 0...numbersofphotos-1 {
+        let fianl=assets[i] as! PHAsset
+        let screenSize: CGSize = UIScreen.mainScreen().bounds.size
+        let targetSize = CGSizeMake(screenSize.width, screenSize.height)
+        var options = PHImageRequestOptions()
+        options.resizeMode = PHImageRequestOptionsResizeMode.Exact
+        PHImageManager.defaultManager().requestImageForAsset(fianl, targetSize: targetSize, contentMode: PHImageContentMode.AspectFit, options: options) { (result, info) in
+            print(result?.size)
+            img=result
+        }
+        Image.append(img!)}
+    print("Image 里有\(Image.count)个值")
+    return Image
+}
+
+class ImageTextCell: UICollectionViewCell {
+    var imageView: UIImageView?
+    var imageID: Int?{
+        
+        didSet {
+            self.imageView!.image = Camera()[self.imageID! as Int]
+        }
+        
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        self.imageView = UIImageView()
+        self.addSubview(self.imageView!)
+        
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.imageView?.frame = self.bounds
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+}
+
 
 
 extension ViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
-        return 5;
+        return 5
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
@@ -273,7 +351,7 @@ extension ViewController: UITableViewDataSource {
         cell.textLabel?.textAlignment = NSTextAlignment.Center
         cell.textLabel?.textColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 0.5)
         cell.selectionStyle = UITableViewCellSelectionStyle.None
-
+        
         return cell
     }
 }
