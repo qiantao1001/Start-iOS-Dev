@@ -7,5 +7,6 @@ target 'startiosdev' do
     pod 'Toucan'
     pod 'SnapKit'
     pod 'EasyAnimation'
+    pod 'DrawerController'
 end
 

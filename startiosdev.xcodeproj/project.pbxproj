@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		250562261CBA4D4B00569461 /* PWMNavigationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250562251CBA4D4B00569461 /* PWMNavigationVC.swift */; };
+		2505622A1CBA4DEB00569461 /* PWMMainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250562291CBA4DEB00569461 /* PWMMainVC.swift */; };
+		2505622C1CBA4FF500569461 /* PWMSideMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2505622B1CBA4FF500569461 /* PWMSideMenuVC.swift */; };
 		2514CE381CA262B3009F6884 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2514CE371CA262B3009F6884 /* TestViewController.swift */; };
 		254E703F1CA28EC500290B97 /* CVLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254E703E1CA28EC500290B97 /* CVLine.swift */; };
 		254E70411CA3969500290B97 /* CVAlbumList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254E70401CA3969500290B97 /* CVAlbumList.swift */; };
@@ -20,6 +23,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		250562251CBA4D4B00569461 /* PWMNavigationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PWMNavigationVC.swift; sourceTree = "<group>"; };
+		250562291CBA4DEB00569461 /* PWMMainVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PWMMainVC.swift; sourceTree = "<group>"; };
+		2505622B1CBA4FF500569461 /* PWMSideMenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PWMSideMenuVC.swift; sourceTree = "<group>"; };
 		2514CE371CA262B3009F6884 /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		254E703E1CA28EC500290B97 /* CVLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CVLine.swift; sourceTree = "<group>"; };
 		254E70401CA3969500290B97 /* CVAlbumList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CVAlbumList.swift; sourceTree = "<group>"; };
@@ -75,6 +81,7 @@
 				25C3881F1CA0E85100C559DF /* Views */,
 				25C388181CA0DE0300C559DF /* Resource */,
 				25A7C6FF1C911E330001C8BE /* AppDelegate.swift */,
+				250562251CBA4D4B00569461 /* PWMNavigationVC.swift */,
 				25A7C7061C911E330001C8BE /* Assets.xcassets */,
 				25A7C70B1C911E330001C8BE /* Info.plist */,
 			);
@@ -102,6 +109,8 @@
 			children = (
 				25C3881D1CA0E85100C559DF /* ViewController.swift */,
 				2514CE371CA262B3009F6884 /* TestViewController.swift */,
+				250562291CBA4DEB00569461 /* PWMMainVC.swift */,
+				2505622B1CBA4FF500569461 /* PWMSideMenuVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -272,11 +281,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2505622A1CBA4DEB00569461 /* PWMMainVC.swift in Sources */,
 				254E703F1CA28EC500290B97 /* CVLine.swift in Sources */,
 				25C388201CA0E85100C559DF /* ViewController.swift in Sources */,
 				2514CE381CA262B3009F6884 /* TestViewController.swift in Sources */,
 				254E70411CA3969500290B97 /* CVAlbumList.swift in Sources */,
+				2505622C1CBA4FF500569461 /* PWMSideMenuVC.swift in Sources */,
 				25A7C7001C911E330001C8BE /* AppDelegate.swift in Sources */,
+				250562261CBA4D4B00569461 /* PWMNavigationVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
