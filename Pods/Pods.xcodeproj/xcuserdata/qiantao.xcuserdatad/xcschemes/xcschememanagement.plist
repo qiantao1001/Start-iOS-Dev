@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>DrawerController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>EasyAnimation.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -42,27 +47,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6379CFBAD676A3D218886BF292C0E6A0</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>98CA229DF63B616FEC0EE7832C44D07B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>A376E868ED408EE8EEBD1DDBCE639EF5</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C02FD7966C1676B1158DC1DF2AC424B8</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>CE5D399C693091DD1F48F288ED7A9AE6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
