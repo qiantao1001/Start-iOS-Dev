@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 private let reuseIdentifier = "Cell"
 
@@ -17,11 +18,28 @@ class PWMMainVC: UICollectionViewController {
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
+        // 解决collectionView存在初始偏移的问题
+        self.automaticallyAdjustsScrollViewInsets = false
 
         // Register cell classes
         self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        self.collectionView!.delegate = self
+        self.collectionView!.dataSource = self
+        self.collectionView!.backgroundColor = UIColor(red: 32/255, green: 32/255, blue: 32/255, alpha: 1.0)
+        self.collectionView!.showsVerticalScrollIndicator = false
 
         // Do any additional setup after loading the view.
+        // 1.Layout
+        layout()
+        
+    }
+    
+    func layout() {
+        self.collectionView!.snp_makeConstraints { (make) in
+            make.bottom.equalTo(self.view).offset(-self.view.frame.height * 0.08)
+            make.left.right.equalTo(self.view)
+            make.height.equalTo(self.view).multipliedBy(0.52)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,17 +47,7 @@ class PWMMainVC: UICollectionViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-    // MARK: UICollectionViewDataSource
+    // MARK: - UICollectionViewDataSource
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -54,9 +62,12 @@ class PWMMainVC: UICollectionViewController {
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath)
-    
+        
         // Configure the cell
-    
+        let cellColor = UIColor(red: CGFloat(arc4random() % 100)/100, green: CGFloat(arc4random() % 100)/100, blue: CGFloat(arc4random() % 100)/100, alpha: 1.0)
+        cell.backgroundColor = cellColor
+        cell.contentView.transform = CGAffineTransformMakeScale(1, -1)
+        
         return cell
     }
 
@@ -91,4 +102,20 @@ class PWMMainVC: UICollectionViewController {
     }
     */
 
+}
+
+// MARK: - Extensions
+extension PWMMainVC: UICollectionViewDelegateFlowLayout {
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 5;
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        let sideLength = CGFloat((self.collectionView!.frame.width - 15) / 4)
+        return CGSizeMake(sideLength, sideLength)
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 5.0
+    }
 }
