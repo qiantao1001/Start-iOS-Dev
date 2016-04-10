@@ -89,7 +89,7 @@ class ViewController: UICollectionViewController {
         self.collectionView!.dataSource = self
         
         self.collectionView!.showsVerticalScrollIndicator = false
-        self.collectionView!.transform = CGAffineTransformMakeScale(1, -1)
+        //self.collectionView!.transform = CGAffineTransformMakeScale(1, -1)
         
         
         
@@ -219,7 +219,7 @@ class ViewController: UICollectionViewController {
         let albums=PHAssetCollection.fetchAssetCollectionsWithType(PHAssetCollectionType.SmartAlbum, subtype: PHAssetCollectionSubtype.SmartAlbumUserLibrary, options: nil)
         let collection=albums[0] as! PHAssetCollection
         let Assets=PHAsset.fetchAssetsInAssetCollection(collection, options: PHFetchOptions?.init())
-        var NumbersofCameraPhotos = Assets.count
+        let NumbersofCameraPhotos = Assets.count
         return NumbersofCameraPhotos
         
     }
@@ -239,9 +239,9 @@ class ViewController: UICollectionViewController {
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ImageTextCell", forIndexPath: indexPath) as! ImageTextCell
         let photos=Camera()
-        let cellColor = UIColor(red: CGFloat(arc4random() % 100)/100, green: CGFloat(arc4random() % 100)/100, blue: CGFloat(arc4random() % 100)/100, alpha: 1.0)
+        //_ = UIColor(red: CGFloat(arc4random() % 100)/100, green: CGFloat(arc4random() % 100)/100, blue: CGFloat(arc4random() % 100)/100, alpha: 1.0)
         cell.backgroundColor = UIColor.init(patternImage: photos[0])
-        cell.contentView.transform = CGAffineTransformMakeScale(1, 1)
+        //cell.contentView.transform = CGAffineTransformMakeScale(1, 1)
         cell.imageID=self.imageArray[indexPath.item]
         return cell
     }
@@ -260,7 +260,7 @@ func Camera()->[UIImage]{
         let fianl=assets[i] as! PHAsset
         let screenSize: CGSize = UIScreen.mainScreen().bounds.size
         let targetSize = CGSizeMake(screenSize.width, screenSize.height)
-        var options = PHImageRequestOptions()
+        let options = PHImageRequestOptions()
         options.resizeMode = PHImageRequestOptionsResizeMode.Exact
         PHImageManager.defaultManager().requestImageForAsset(fianl, targetSize: targetSize, contentMode: PHImageContentMode.AspectFit, options: options) { (result, info) in
             print(result?.size)
