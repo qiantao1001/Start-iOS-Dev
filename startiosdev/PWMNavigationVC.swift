@@ -13,7 +13,10 @@ class PWMNavigationVC: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationBar.tintColor = UIColor(red: 32/255, green: 32/255, blue: 32/255, alpha: 0.4)
+        self.navigationBar.barTintColor = UIColor(red: 32/255, green: 32/255, blue: 32/255, alpha: 0.2)
+        
+        //UIApplication.sharedApplication().setStatusBarStyle(.Default, animated: true)
+        //self.navigationBar.translucent = true
     }
 
     override func didReceiveMemoryWarning() {
