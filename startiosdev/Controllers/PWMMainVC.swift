@@ -28,6 +28,10 @@ class PWMMainVC: UICollectionViewController {
         self.collectionView!.backgroundColor = UIColor(red: 32/255, green: 32/255, blue: 32/255, alpha: 1.0)
         self.collectionView!.showsVerticalScrollIndicator = false
 
+        // Set Navigationbar Button
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Bookmarks, target: self, action: #selector(showSideMenu))
+        
+        
         // Do any additional setup after loading the view.
         // 1.Layout
         layout()
@@ -40,6 +44,10 @@ class PWMMainVC: UICollectionViewController {
             make.left.right.equalTo(self.view)
             make.height.equalTo(self.view).multipliedBy(0.52)
         }
+    }
+    
+    func showSideMenu() {
+        PWMClient.sharedInstance.mainController?.toggleLeftDrawerSideAnimated(true, completion: nil)
     }
 
     override func didReceiveMemoryWarning() {
