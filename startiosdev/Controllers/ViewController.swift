@@ -107,28 +107,28 @@ class ViewController: UICollectionViewController {
         
         // Add buttons
         coverView.addSubview(setWMButton!)
-        setWMButton!.addTarget(self, action: Selector("setWaterMark"), forControlEvents: UIControlEvents.TouchUpInside)
+        setWMButton!.addTarget(self, action: #selector(ViewController.setWaterMark), forControlEvents: UIControlEvents.TouchUpInside)
         setWMButton!.snp_makeConstraints { (make) -> Void in
             make.left.equalTo(coverView).inset((self.view.frame.width/3 - setWMButton!.frame.width)/2)
             make.bottom.equalTo(line.snp_top).offset(-20)
         }
         
         coverView.addSubview(onekeyWMButton!)
-        onekeyWMButton!.addTarget(self, action: "onekeyWaterMark", forControlEvents: UIControlEvents.TouchUpInside)
+        onekeyWMButton!.addTarget(self, action: #selector(ViewController.onekeyWaterMark), forControlEvents: UIControlEvents.TouchUpInside)
         onekeyWMButton!.snp_makeConstraints { (make) -> Void in
             make.centerX.equalTo(coverView)
             make.bottom.equalTo(line.snp_top).offset(-20)
         }
         
         coverView.addSubview(infoWMButton!)
-        infoWMButton!.addTarget(self, action: "infoWaterMark", forControlEvents: UIControlEvents.TouchUpInside)
+        infoWMButton!.addTarget(self, action: #selector(ViewController.infoWaterMark), forControlEvents: UIControlEvents.TouchUpInside)
         infoWMButton!.snp_makeConstraints { (make) -> Void in
             make.right.equalTo(coverView).inset((self.view.frame.width/3 - infoWMButton!.frame.width)/2)
             make.bottom.equalTo(line.snp_top).offset(-20)
         }
         
         line.addSubview(albumSwitch!)
-        albumSwitch!.addTarget(self, action: "switchAlbum", forControlEvents: UIControlEvents.TouchUpInside)
+        albumSwitch!.addTarget(self, action: #selector(ViewController.switchAlbum), forControlEvents: UIControlEvents.TouchUpInside)
         albumSwitch!.snp_makeConstraints { (make) -> Void in
             make.center.equalTo(line.snp_center)
         }
