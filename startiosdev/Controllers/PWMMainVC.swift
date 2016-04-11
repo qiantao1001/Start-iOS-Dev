@@ -24,12 +24,10 @@ class PWMMainVC: UICollectionViewController {
         
         var array: [Int] = []
         
-        print(Camera().count)
-        
         for i in 0...Camera().count-1 {
             array.append(i)
         }
-        print(array.count)
+        
         return array
     }()
     
@@ -50,9 +48,8 @@ class PWMMainVC: UICollectionViewController {
         self.collectionView!.showsVerticalScrollIndicator = false
 
         // Set Navigationbar Button
-        let btImg = UIImage(named: "SideMenu")
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image:btImg, style: UIBarButtonItemStyle.Done, target:self, action: #selector(showSideMenu))
-            //UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Bookmarks, target: self, action: #selector(showSideMenu))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "SideMenu"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(showSideMenu))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "OneKey"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(oneKeyDone))
         
         // Set Subviews
         recentPhotoContainer = UIView()
@@ -100,6 +97,10 @@ class PWMMainVC: UICollectionViewController {
     
     func showSideMenu() {
         PWMClient.sharedInstance.mainController?.toggleLeftDrawerSideAnimated(true, completion: nil)
+    }
+    
+    func oneKeyDone() {
+        PWMClient.sharedInstance.pwmMainVC?.navigationController?.pushViewController(TestViewController(), animated: true)
     }
 
     override func didReceiveMemoryWarning() {
@@ -193,26 +194,29 @@ extension PWMMainVC: UICollectionViewDelegateFlowLayout {
 }
 
 func Camera()->[UIImage]{
-    let albums = PHAssetCollection.fetchAssetCollectionsWithType(.SmartAlbum, subtype: PHAssetCollectionSubtype.SmartAlbumUserLibrary, options: PHFetchOptions?.init())
+    //获取系统相册
+    let albums: PHFetchResult = PHAssetCollection.fetchAssetCollectionsWithType(.SmartAlbum, subtype: PHAssetCollectionSubtype.SmartAlbumUserLibrary, options: PHFetchOptions?.init())
+    
+    // 需要加判断逻辑，否则会挂
     
     let collection = albums[0] as! PHAssetCollection
-    print(albums.count)
-    let assets=PHAsset.fetchAssetsInAssetCollection(collection, options: PHFetchOptions?.init())
-    print(assets.count)
-    let numbersofphotos=assets.count
-    var Image:[UIImage]=[]
-    var img:UIImage?
-    for i in 0...numbersofphotos-1 {
-        let fianl=assets[i] as! PHAsset
+    let assets = PHAsset.fetchAssetsInAssetCollection(collection, options: PHFetchOptions?.init())
+    let numbersofphotos = assets.count
+    var Image: [UIImage] = []
+    var img: UIImage?
+    for i in 0...numbersofphotos - 1 {
+        let fianl = assets[i] as! PHAsset
         let screenSize: CGSize = UIScreen.mainScreen().bounds.size
         let targetSize = CGSizeMake(screenSize.width, screenSize.height)
         let options = PHImageRequestOptions()
         options.resizeMode = PHImageRequestOptionsResizeMode.Exact
+        
+        // 请求获取照片
         PHImageManager.defaultManager().requestImageForAsset(fianl, targetSize: targetSize, contentMode: PHImageContentMode.AspectFit, options: options) { (result, info) in
-            print(result?.size)
-            img=result
+            img = result
         }
-        Image.append(img!)}
-    print("Image 里有\(Image.count)个值")
+        
+        Image.append(img!)
+    }
     return Image
 }

@@ -25,9 +25,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let centerNav = PWMNavigationVC(rootViewController: mainVC)
         let sideMenuVC = PWMSideMenuVC()
         let mainController = DrawerController(centerViewController: centerNav, leftDrawerViewController: sideMenuVC)
-        mainController.maximumLeftDrawerWidth = UIScreen.mainScreen().bounds.width*0.4
+        mainController.maximumLeftDrawerWidth = UIScreen.mainScreen().bounds.width*0.6
         mainController.openDrawerGestureModeMask = OpenDrawerGestureMode.PanningCenterView
         mainController.closeDrawerGestureModeMask = CloseDrawerGestureMode.All
+        mainController.shouldStretchDrawer = false
         mainController.showsShadows = false
         self.window?.rootViewController  = mainController
         window?.makeKeyAndVisible()
