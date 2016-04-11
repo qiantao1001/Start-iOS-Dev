@@ -238,15 +238,16 @@ class ViewController: UICollectionViewController {
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ImageTextCell", forIndexPath: indexPath) as! PWMPhotoStreamCell
-        let photos=Camera()
+        //let photos=Camera()
         //_ = UIColor(red: CGFloat(arc4random() % 100)/100, green: CGFloat(arc4random() % 100)/100, blue: CGFloat(arc4random() % 100)/100, alpha: 1.0)
-        cell.backgroundColor = UIColor.init(patternImage: photos[0])
+        //cell.backgroundColor = UIColor.init(patternImage: photos[0])
         //cell.contentView.transform = CGAffineTransformMakeScale(1, 1)
         cell.imageID=self.imageArray[indexPath.item]
         return cell
     }
     
 }
+/*
 func Camera()->[UIImage]{
     let albums=PHAssetCollection.fetchAssetCollectionsWithType(.SmartAlbum, subtype: PHAssetCollectionSubtype.SmartAlbumUserLibrary, options: PHFetchOptions?.init())
     let collection=albums[0] as! PHAssetCollection
@@ -270,14 +271,14 @@ func Camera()->[UIImage]{
     print("Image 里有\(Image.count)个值")
     return Image
 }
-
+*/
 
 
 
 
 extension ViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
-        return 5
+        return 5.0
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
