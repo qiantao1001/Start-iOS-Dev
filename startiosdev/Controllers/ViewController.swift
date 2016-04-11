@@ -84,7 +84,7 @@ class ViewController: UICollectionViewController {
     func initLayout()
     {
         // Add UICollectionView
-        self.collectionView!.registerClass(ImageTextCell.self, forCellWithReuseIdentifier: "ImageTextCell")
+        self.collectionView!.registerClass(PWMPhotoStreamCell.self, forCellWithReuseIdentifier: "ImageTextCell")
         self.collectionView!.delegate = self
         self.collectionView!.dataSource = self
         
@@ -237,7 +237,7 @@ class ViewController: UICollectionViewController {
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ImageTextCell", forIndexPath: indexPath) as! ImageTextCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ImageTextCell", forIndexPath: indexPath) as! PWMPhotoStreamCell
         let photos=Camera()
         //_ = UIColor(red: CGFloat(arc4random() % 100)/100, green: CGFloat(arc4random() % 100)/100, blue: CGFloat(arc4random() % 100)/100, alpha: 1.0)
         cell.backgroundColor = UIColor.init(patternImage: photos[0])
@@ -271,34 +271,7 @@ func Camera()->[UIImage]{
     return Image
 }
 
-class ImageTextCell: UICollectionViewCell {
-    var imageView: UIImageView?
-    var imageID: Int?{
-        
-        didSet {
-            self.imageView!.image = Camera()[self.imageID! as Int]
-        }
-        
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        self.imageView = UIImageView()
-        self.addSubview(self.imageView!)
-        
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.imageView?.frame = self.bounds
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-}
+
 
 
 

@@ -12,6 +12,12 @@ import SnapKit
 private let reuseIdentifier = "Cell"
 
 class PWMMainVC: UICollectionViewController {
+    
+    // MARK: Properties
+    private var recentPhotoContainer: UIView?
+    private var recentPhotoView: UIImageView?
+    private var bottomBar: UIView?
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +26,7 @@ class PWMMainVC: UICollectionViewController {
         // self.clearsSelectionOnViewWillAppear = false
         // 解决collectionView存在初始偏移的问题
         self.automaticallyAdjustsScrollViewInsets = false
-
+        
         // Register cell classes
         self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         self.collectionView!.delegate = self
@@ -29,8 +35,22 @@ class PWMMainVC: UICollectionViewController {
         self.collectionView!.showsVerticalScrollIndicator = false
 
         // Set Navigationbar Button
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Bookmarks, target: self, action: #selector(showSideMenu))
+        let btImg = UIImage(named: "SideMenu")
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image:btImg, style: UIBarButtonItemStyle.Done, target:self, action: #selector(showSideMenu))
+            //UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Bookmarks, target: self, action: #selector(showSideMenu))
         
+        // Set Subviews
+        recentPhotoContainer = UIView()
+        recentPhotoContainer!.backgroundColor = UIColor(red: 32/255, green: 32/255, blue: 32/255, alpha: 1.0)
+        self.view.addSubview(recentPhotoContainer!)
+        
+        recentPhotoView = UIImageView()
+        recentPhotoView!.backgroundColor = UIColor.grayColor()
+        recentPhotoContainer!.addSubview(recentPhotoView!)
+        
+        bottomBar = UIView()
+        bottomBar!.backgroundColor = UIColor(red: 32/255, green: 32/255, blue: 32/255, alpha: 1.0)
+        self.view.addSubview(bottomBar!)
         
         // Do any additional setup after loading the view.
         // 1.Layout
@@ -40,10 +60,27 @@ class PWMMainVC: UICollectionViewController {
     
     func layout() {
         self.collectionView!.snp_makeConstraints { (make) in
-            make.bottom.equalTo(self.view).offset(-self.view.frame.height * 0.08)
+            make.bottom.equalTo(bottomBar!)
             make.left.right.equalTo(self.view)
             make.height.equalTo(self.view).multipliedBy(0.52)
         }
+        
+        recentPhotoContainer?.snp_makeConstraints(closure: { (make) in
+            make.bottom.equalTo(self.collectionView!.snp_top)
+            make.left.right.equalTo(self.view)
+            make.top.equalTo(self.view).offset(UIApplication.sharedApplication().statusBarFrame.height + (self.navigationController?.navigationBar.frame.height)!)
+        })
+        
+        recentPhotoView?.snp_makeConstraints(closure: { (make) in
+            make.left.right.equalTo(recentPhotoContainer!)
+            make.top.bottom.equalTo(recentPhotoContainer!).inset(5)
+        })
+        
+        bottomBar?.snp_makeConstraints(closure: { (make) in
+            make.left.right.bottom.equalTo(self.view)
+            make.height.equalTo(0)
+        })
+        
     }
     
     func showSideMenu() {
