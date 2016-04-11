@@ -84,12 +84,12 @@ class ViewController: UICollectionViewController {
     func initLayout()
     {
         // Add UICollectionView
-        self.collectionView!.registerClass(ImageTextCell.self, forCellWithReuseIdentifier: "ImageTextCell")
+        self.collectionView!.registerClass(PWMPhotoStreamCell.self, forCellWithReuseIdentifier: "ImageTextCell")
         self.collectionView!.delegate = self
         self.collectionView!.dataSource = self
         
         self.collectionView!.showsVerticalScrollIndicator = false
-        self.collectionView!.transform = CGAffineTransformMakeScale(1, -1)
+        //self.collectionView!.transform = CGAffineTransformMakeScale(1, -1)
         
         
         
@@ -124,28 +124,28 @@ class ViewController: UICollectionViewController {
         // Add buttons
         
         coverView.addSubview(setWMButton!)
-        setWMButton!.addTarget(self, action: Selector("setWaterMark"), forControlEvents: UIControlEvents.TouchUpInside)
+        setWMButton!.addTarget(self, action: #selector(ViewController.setWaterMark), forControlEvents: UIControlEvents.TouchUpInside)
         setWMButton!.snp_makeConstraints { (make) -> Void in
             make.left.equalTo(coverView).inset((self.view.frame.width/3 - setWMButton!.frame.width)/2)
             make.bottom.equalTo(line.snp_top).offset(-20)
         }
         
         coverView.addSubview(onekeyWMButton!)
-        onekeyWMButton!.addTarget(self, action: "onekeyWaterMark", forControlEvents: UIControlEvents.TouchUpInside)
+        onekeyWMButton!.addTarget(self, action: #selector(ViewController.onekeyWaterMark), forControlEvents: UIControlEvents.TouchUpInside)
         onekeyWMButton!.snp_makeConstraints { (make) -> Void in
             make.centerX.equalTo(coverView)
             make.bottom.equalTo(line.snp_top).offset(-20)
         }
         
         coverView.addSubview(infoWMButton!)
-        infoWMButton!.addTarget(self, action: "infoWaterMark", forControlEvents: UIControlEvents.TouchUpInside)
+        infoWMButton!.addTarget(self, action: #selector(ViewController.infoWaterMark), forControlEvents: UIControlEvents.TouchUpInside)
         infoWMButton!.snp_makeConstraints { (make) -> Void in
             make.right.equalTo(coverView).inset((self.view.frame.width/3 - infoWMButton!.frame.width)/2)
             make.bottom.equalTo(line.snp_top).offset(-20)
         }
         
         line.addSubview(albumSwitch!)
-        albumSwitch!.addTarget(self, action: "switchAlbum", forControlEvents: UIControlEvents.TouchUpInside)
+        albumSwitch!.addTarget(self, action: #selector(ViewController.switchAlbum), forControlEvents: UIControlEvents.TouchUpInside)
         albumSwitch!.snp_makeConstraints { (make) -> Void in
             make.center.equalTo(line.snp_center)
         }
@@ -219,7 +219,7 @@ class ViewController: UICollectionViewController {
         let albums=PHAssetCollection.fetchAssetCollectionsWithType(PHAssetCollectionType.SmartAlbum, subtype: PHAssetCollectionSubtype.SmartAlbumUserLibrary, options: nil)
         let collection=albums[0] as! PHAssetCollection
         let Assets=PHAsset.fetchAssetsInAssetCollection(collection, options: PHFetchOptions?.init())
-        var NumbersofCameraPhotos = Assets.count
+        let NumbersofCameraPhotos = Assets.count
         return NumbersofCameraPhotos
         
     }
@@ -237,11 +237,11 @@ class ViewController: UICollectionViewController {
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ImageTextCell", forIndexPath: indexPath) as! ImageTextCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ImageTextCell", forIndexPath: indexPath) as! PWMPhotoStreamCell
         let photos=Camera()
-        let cellColor = UIColor(red: CGFloat(arc4random() % 100)/100, green: CGFloat(arc4random() % 100)/100, blue: CGFloat(arc4random() % 100)/100, alpha: 1.0)
+        //_ = UIColor(red: CGFloat(arc4random() % 100)/100, green: CGFloat(arc4random() % 100)/100, blue: CGFloat(arc4random() % 100)/100, alpha: 1.0)
         cell.backgroundColor = UIColor.init(patternImage: photos[0])
-        cell.contentView.transform = CGAffineTransformMakeScale(1, 1)
+        //cell.contentView.transform = CGAffineTransformMakeScale(1, 1)
         cell.imageID=self.imageArray[indexPath.item]
         return cell
     }
@@ -260,7 +260,7 @@ func Camera()->[UIImage]{
         let fianl=assets[i] as! PHAsset
         let screenSize: CGSize = UIScreen.mainScreen().bounds.size
         let targetSize = CGSizeMake(screenSize.width, screenSize.height)
-        var options = PHImageRequestOptions()
+        let options = PHImageRequestOptions()
         options.resizeMode = PHImageRequestOptionsResizeMode.Exact
         PHImageManager.defaultManager().requestImageForAsset(fianl, targetSize: targetSize, contentMode: PHImageContentMode.AspectFit, options: options) { (result, info) in
             print(result?.size)
@@ -271,34 +271,7 @@ func Camera()->[UIImage]{
     return Image
 }
 
-class ImageTextCell: UICollectionViewCell {
-    var imageView: UIImageView?
-    var imageID: Int?{
-        
-        didSet {
-            self.imageView!.image = Camera()[self.imageID! as Int]
-        }
-        
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        self.imageView = UIImageView()
-        self.addSubview(self.imageView!)
-        
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.imageView?.frame = self.bounds
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-}
+
 
 
 

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DrawerController
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,11 +19,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         
-        let mainVC = ViewController()
-        self.window?.rootViewController  = mainVC
-        
+        let collectionViewLayout = UICollectionViewFlowLayout()
+        collectionViewLayout.scrollDirection = UICollectionViewScrollDirection.Vertical
+        let mainVC = PWMMainVC(collectionViewLayout: collectionViewLayout)
+        let centerNav = PWMNavigationVC(rootViewController: mainVC)
+        let sideMenuVC = PWMSideMenuVC()
+        let mainController = DrawerController(centerViewController: centerNav, leftDrawerViewController: sideMenuVC)
+        mainController.maximumLeftDrawerWidth = UIScreen.mainScreen().bounds.width*0.4
+        mainController.openDrawerGestureModeMask = OpenDrawerGestureMode.PanningCenterView
+        mainController.closeDrawerGestureModeMask = CloseDrawerGestureMode.All
+        mainController.showsShadows = false
+        self.window?.rootViewController  = mainController
         window?.makeKeyAndVisible()
         
+        PWMClient.sharedInstance.mainController = mainController
+        PWMClient.sharedInstance.pwmNavVC = centerNav
+        PWMClient.sharedInstance.pwmSideMenuVC = sideMenuVC
+        PWMClient.sharedInstance.pwmMainVC = mainVC
 
         return true
     }

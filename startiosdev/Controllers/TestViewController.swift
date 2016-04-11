@@ -24,7 +24,7 @@ class TestViewController: UIViewController {
         backButton.setTitleColor(UIColor(red: 0, green: 220/255, blue: 16/255, alpha: 1), forState: UIControlState.Normal)
         backButton.tintColor = UIColor.orangeColor()
         backButton.titleLabel?.font = UIFont.systemFontOfSize(24)
-        backButton.addTarget(self, action: "returnPrevView", forControlEvents: UIControlEvents.TouchUpInside)
+        backButton.addTarget(self, action: #selector(TestViewController.returnPrevView), forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(backButton)
         backButton.snp_makeConstraints { (make) -> Void in
             make.center.equalTo(self.view)
