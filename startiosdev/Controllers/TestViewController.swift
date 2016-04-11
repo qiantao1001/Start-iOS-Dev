@@ -20,16 +20,6 @@ class TestViewController: UIViewController {
         
         self.view.backgroundColor = UIColor(red: 32/255, green: 32/255, blue: 32/255, alpha: 1)
         
-        backButton.setTitle("Return", forState: UIControlState.Normal)
-        backButton.setTitleColor(UIColor(red: 0, green: 220/255, blue: 16/255, alpha: 1), forState: UIControlState.Normal)
-        backButton.tintColor = UIColor.orangeColor()
-        backButton.titleLabel?.font = UIFont.systemFontOfSize(24)
-        backButton.addTarget(self, action: #selector(TestViewController.returnPrevView), forControlEvents: UIControlEvents.TouchUpInside)
-        self.view.addSubview(backButton)
-        backButton.snp_makeConstraints { (make) -> Void in
-            make.center.equalTo(self.view)
-        }
-        
         textLabel.text = "This is a test view."
         textLabel.font = UIFont.systemFontOfSize(36)
         textLabel.textColor = UIColor.whiteColor()
@@ -46,10 +36,6 @@ class TestViewController: UIViewController {
     }
     
     // MARK: Events handle
-    func returnPrevView() {
-        self.dismissViewControllerAnimated(true, completion: nil)
-        
-    }
     
     /*
     // MARK: - Navigation
