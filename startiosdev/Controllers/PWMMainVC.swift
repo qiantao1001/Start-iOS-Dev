@@ -26,7 +26,7 @@ class PWMMainVC: UICollectionViewController {
         // self.clearsSelectionOnViewWillAppear = false
         // 解决collectionView存在初始偏移的问题
         self.automaticallyAdjustsScrollViewInsets = false
-
+        
         // Register cell classes
         self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         self.collectionView!.delegate = self
@@ -35,7 +35,9 @@ class PWMMainVC: UICollectionViewController {
         self.collectionView!.showsVerticalScrollIndicator = false
 
         // Set Navigationbar Button
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Bookmarks, target: self, action: #selector(showSideMenu))
+        let btImg = UIImage(named: "SideMenu")
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image:btImg, style: UIBarButtonItemStyle.Done, target:self, action: #selector(showSideMenu))
+            //UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Bookmarks, target: self, action: #selector(showSideMenu))
         
         // Set Subviews
         recentPhotoContainer = UIView()
@@ -58,7 +60,7 @@ class PWMMainVC: UICollectionViewController {
     
     func layout() {
         self.collectionView!.snp_makeConstraints { (make) in
-            make.bottom.equalTo(self.view).offset(-self.view.frame.height * 0.08)
+            make.bottom.equalTo(bottomBar!)
             make.left.right.equalTo(self.view)
             make.height.equalTo(self.view).multipliedBy(0.52)
         }
@@ -76,7 +78,7 @@ class PWMMainVC: UICollectionViewController {
         
         bottomBar?.snp_makeConstraints(closure: { (make) in
             make.left.right.bottom.equalTo(self.view)
-            make.top.equalTo(self.collectionView!.snp_bottom)
+            make.height.equalTo(0)
         })
         
     }
