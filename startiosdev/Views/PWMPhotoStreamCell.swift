@@ -10,25 +10,19 @@ import UIKit
 
 class PWMPhotoStreamCell: UICollectionViewCell {
     var imageView: UIImageView?
-    var imageID: Int?{
-        
-        didSet {
-            self.imageView!.image = Camera()[self.imageID! as Int]
-        }
-        
-    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        self.imageView = UIImageView()
-        self.addSubview(self.imageView!)
-        
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.imageView?.frame = self.bounds
+        self.backgroundColor = PWMColor.mainColor()
+        imageView = UIImageView()
+        imageView?.backgroundColor = PWMColor.randomColor()
+        imageView?.contentMode = UIViewContentMode.ScaleAspectFill
+        imageView?.clipsToBounds = true
+        imageView?.autoresizesSubviews = false
+        self.addSubview(imageView!)
+        imageView?.snp_makeConstraints(closure: { (make) in
+            make.edges.equalTo(self.contentView)
+        })
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -10,7 +10,6 @@ import UIKit
 import SnapKit
 
 class TestViewController: UIViewController {
-    lazy var backButton = UIButton(type: UIButtonType.Custom)
     lazy var textLabel = UILabel()
 
     override func viewDidLoad() {
@@ -25,8 +24,7 @@ class TestViewController: UIViewController {
         textLabel.textColor = UIColor.whiteColor()
         self.view.addSubview(textLabel)
         textLabel.snp_makeConstraints { (make) -> Void in
-            make.bottom.equalTo(backButton.snp_top).offset(-20)
-            make.centerX.equalTo(backButton)
+            make.center.equalTo(self.view)
         }
     }
 
