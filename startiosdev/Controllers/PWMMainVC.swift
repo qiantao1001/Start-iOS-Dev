@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import Photos
+import PhotosUI
 import SnapKit
 
-private let reuseIdentifier = "Cell"
+private let reuseIdentifier = "PWMPhotoStreamCell"
 
 class PWMMainVC: UICollectionViewController {
     
@@ -17,6 +19,19 @@ class PWMMainVC: UICollectionViewController {
     private var recentPhotoContainer: UIView?
     private var recentPhotoView: UIImageView?
     private var bottomBar: UIView?
+    
+    var imageArray: [Int] = {
+        
+        var array: [Int] = []
+        
+        print(Camera().count)
+        
+        for i in 0...Camera().count-1 {
+            array.append(i)
+        }
+        print(array.count)
+        return array
+    }()
     
 
     override func viewDidLoad() {
@@ -28,7 +43,7 @@ class PWMMainVC: UICollectionViewController {
         self.automaticallyAdjustsScrollViewInsets = false
         
         // Register cell classes
-        self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        self.collectionView!.registerClass(PWMPhotoStreamCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         self.collectionView!.delegate = self
         self.collectionView!.dataSource = self
         self.collectionView!.backgroundColor = UIColor(red: 32/255, green: 32/255, blue: 32/255, alpha: 1.0)
@@ -102,20 +117,24 @@ class PWMMainVC: UICollectionViewController {
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 100
+        return NumberofCameraPhotos()
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath)
+        //let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath)
         
         // Configure the cell
+        /* TestCode
         let cellColor = UIColor(red: CGFloat(arc4random() % 100)/100, green: CGFloat(arc4random() % 100)/100, blue: CGFloat(arc4random() % 100)/100, alpha: 1.0)
         cell.backgroundColor = cellColor
         cell.contentView.transform = CGAffineTransformMakeScale(1, -1)
+        */
         
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! PWMPhotoStreamCell
+        cell.imageID = self.imageArray[indexPath.item]
         return cell
     }
-
+    
     // MARK: UICollectionViewDelegate
 
     /*
@@ -146,6 +165,14 @@ class PWMMainVC: UICollectionViewController {
     
     }
     */
+    
+    func NumberofCameraPhotos()->Int {
+        let albums=PHAssetCollection.fetchAssetCollectionsWithType(PHAssetCollectionType.SmartAlbum, subtype: PHAssetCollectionSubtype.SmartAlbumUserLibrary, options: nil)
+        let collection=albums[0] as! PHAssetCollection
+        let Assets=PHAsset.fetchAssetsInAssetCollection(collection, options: PHFetchOptions?.init())
+        let NumbersofCameraPhotos = Assets.count
+        return NumbersofCameraPhotos
+    }
 
 }
 
@@ -163,4 +190,29 @@ extension PWMMainVC: UICollectionViewDelegateFlowLayout {
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
         return 5.0
     }
+}
+
+func Camera()->[UIImage]{
+    let albums = PHAssetCollection.fetchAssetCollectionsWithType(.SmartAlbum, subtype: PHAssetCollectionSubtype.SmartAlbumUserLibrary, options: PHFetchOptions?.init())
+    
+    let collection = albums[0] as! PHAssetCollection
+    print(albums.count)
+    let assets=PHAsset.fetchAssetsInAssetCollection(collection, options: PHFetchOptions?.init())
+    print(assets.count)
+    let numbersofphotos=assets.count
+    var Image:[UIImage]=[]
+    var img:UIImage?
+    for i in 0...numbersofphotos-1 {
+        let fianl=assets[i] as! PHAsset
+        let screenSize: CGSize = UIScreen.mainScreen().bounds.size
+        let targetSize = CGSizeMake(screenSize.width, screenSize.height)
+        let options = PHImageRequestOptions()
+        options.resizeMode = PHImageRequestOptionsResizeMode.Exact
+        PHImageManager.defaultManager().requestImageForAsset(fianl, targetSize: targetSize, contentMode: PHImageContentMode.AspectFit, options: options) { (result, info) in
+            print(result?.size)
+            img=result
+        }
+        Image.append(img!)}
+    print("Image 里有\(Image.count)个值")
+    return Image
 }
