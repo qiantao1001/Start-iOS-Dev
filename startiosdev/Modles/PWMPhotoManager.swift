@@ -14,6 +14,8 @@ struct AlbumInfo {
     var count: Int
 }
 
+private let sideLength:CGFloat = (UIScreen.mainScreen().bounds.width - 15)/4
+
 class PWMPhotoManager: NSObject {
     static let sharedInstance = PWMPhotoManager()
     
@@ -46,7 +48,7 @@ class PWMPhotoManager: NSObject {
             assetResults.enumerateObjectsUsingBlock({ (obj, idx, _) in
                 self.assets.append(obj as! PHAsset)
             })
-            cacher?.startCachingImagesForAssets(assets, targetSize: CGSizeMake(90, 90), contentMode: PHImageContentMode.AspectFill, options: nil)
+            cacher?.startCachingImagesForAssets(assets, targetSize: CGSizeMake(sideLength*2, sideLength*2), contentMode: PHImageContentMode.AspectFill, options: nil)
             self.albumNameList.append(info)
         }
         else {
@@ -67,10 +69,51 @@ class PWMPhotoManager: NSObject {
         }
     }
     
+    private func cacheDefaultAlbum() {
+        cacher?.stopCachingImagesForAllAssets()
+        self.assets.removeAll()
+        let userLibrary = smartAlbumResults?.firstObject as! PHAssetCollection
+        let assetResults: PHFetchResult = PHAsset.fetchAssetsInAssetCollection(userLibrary, options: nil)
+        assetResults.enumerateObjectsUsingBlock({ (obj, idx, _) in
+            self.assets.append(obj as! PHAsset)
+        })
+        cacher?.startCachingImagesForAssets(assets, targetSize: CGSizeMake(sideLength*2, sideLength*2), contentMode: PHImageContentMode.AspectFill, options: nil)
+    }
+    
+    func cacheAlbum(idx: Int) {
+        if idx <= 0 {
+            print("Error!!!")
+            return
+        }
+        cacher?.stopCachingImagesForAllAssets()
+        
+        self.assets.removeAll()
+        let collection = albumResults?.objectAtIndex(idx - 1) as! PHAssetCollection
+        let assetResults: PHFetchResult = PHAsset.fetchAssetsInAssetCollection(collection, options: nil)
+        assetResults.enumerateObjectsUsingBlock { (obj, idx, _) in
+            self.assets.append(obj as! PHAsset)
+        }
+        cacher?.startCachingImagesForAssets(assets, targetSize: CGSizeMake(sideLength*2, sideLength*2), contentMode: PHImageContentMode.AspectFill, options: nil)
+    }
+    
+    func change2Album(albumIdx: Int) {
+        // 如果是默认相册
+        if albumIdx == 0 {
+            cacheDefaultAlbum()
+        }
+        else if albumIdx > 0 {
+            cacheAlbum(albumIdx)
+        }
+        else {
+            print("Error albumIndx.\(#function)")
+        }
+        currentAlbum = albumIdx
+        PWMClient.sharedInstance.pwmMainVC?.refresh()
+    }
+    
     // 获取当前缓存图片，并适配传入参数的大小
     func getAlbumPhoto(photoIdx index: Int,size: CGSize) -> UIImage? {
         var photo: UIImage?
-        print(size)
         let newSize = CGSizeMake(size.width*2, size.height*2)
         cacher?.requestImageForAsset(assets[index], targetSize: newSize, contentMode: .AspectFill, options: nil, resultHandler: { (img, _) in
             photo = img
@@ -78,17 +121,28 @@ class PWMPhotoManager: NSObject {
         return photo
     }
     
-    // 获取实际尺寸图片
+    // 获取实际尺寸图片：同步
     func getExactPhoto(at index: Int) -> UIImage? {
-        print("Start getting the exact photo...")
         var photo: UIImage?
         let options = PHImageRequestOptions()
         options.synchronous = true
         cacher?.requestImageForAsset(assets[index], targetSize: PHImageManagerMaximumSize, contentMode: PHImageContentMode.AspectFill, options: options, resultHandler: { (img, _) in
             photo = img
         })
-        print("End getting the exact photo...")
         return photo
+    }
+    
+    // 获取实际尺寸图片：异步
+    func asyncSetExactPhoto(photoView: UIImageView, at index: Int) {
+        let options = PHImageRequestOptions()
+        options.synchronous = true
+        if assets.count == 0 {
+            photoView.image = nil
+            return
+        }
+        cacher?.requestImageForAsset(assets[index], targetSize: PHImageManagerMaximumSize, contentMode: PHImageContentMode.AspectFill, options: options, resultHandler: { (img, _) in
+            photoView.image = img
+        })
     }
     
     func test() {

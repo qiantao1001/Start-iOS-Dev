@@ -48,8 +48,9 @@ class PWMMainVC: UICollectionViewController {
         recentPhotoView = UIImageView()
         recentPhotoView!.backgroundColor = PWMColor.mainColor()
         recentPhotoView!.contentMode = UIViewContentMode.ScaleAspectFit
-        recentPhotoView?.image = PWMPhotoManager.sharedInstance.getExactPhoto(at: 0)
-        recentPhotoContainer!.addSubview(recentPhotoView!)
+        recentPhotoView!.clipsToBounds = true
+        PWMPhotoManager.sharedInstance.asyncSetExactPhoto(recentPhotoView!, at: 0)
+        recentPhotoContainer?.addSubview(recentPhotoView!)
         
         bottomBar = UIView()
         bottomBar!.backgroundColor = PWMColor.mainColor()
@@ -91,7 +92,13 @@ class PWMMainVC: UICollectionViewController {
     }
     
     func oneKeyDone() {
-        PWMClient.sharedInstance.pwmMainVC?.navigationController?.pushViewController(TestViewController(), animated: true)
+        //PWMClient.sharedInstance.pwmMainVC?.navigationController?.pushViewController(TestViewController(), animated: true)
+        PWMClient.sharedInstance.mainController?.toggleRightDrawerSideAnimated(true, completion: nil)
+    }
+    
+    func refresh() {
+        self.collectionView?.reloadData()
+        PWMPhotoManager.sharedInstance.asyncSetExactPhoto(self.recentPhotoView!, at: 0)
     }
 
     override func didReceiveMemoryWarning() {
@@ -100,7 +107,6 @@ class PWMMainVC: UICollectionViewController {
     }
 
     // MARK: - UICollectionViewDataSource
-
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
@@ -125,14 +131,10 @@ class PWMMainVC: UICollectionViewController {
         return cell
     }
     
-    
     // MARK: UICollectionViewDelegate
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         print("Did select cell of \(indexPath.item).")
-        var photo: UIImage?
-        photo = PWMPhotoManager.sharedInstance.getExactPhoto(at: indexPath.item)
-        print("Got photo:\(photo)")
-        recentPhotoView?.image = photo
+        PWMPhotoManager.sharedInstance.asyncSetExactPhoto(recentPhotoView!, at: indexPath.item)
     }
 }
 
