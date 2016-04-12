@@ -23,6 +23,10 @@ class PWMColor: UIColor {
         return UIColor.grayColor()
     }
     
+    override class func greenColor() -> UIColor {
+        return UIColor(red: 0/255, green: 220/255, blue: 16/255, alpha: 1.0)
+    }
+    
     class func randomColor() -> UIColor {
         return UIColor(red: randomLevel(),  green: randomLevel(), blue: randomLevel(), alpha: 1.0)
     }
