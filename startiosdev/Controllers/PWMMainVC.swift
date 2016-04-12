@@ -44,7 +44,7 @@ class PWMMainVC: UICollectionViewController {
         self.collectionView!.registerClass(PWMPhotoStreamCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         self.collectionView!.delegate = self
         self.collectionView!.dataSource = self
-        self.collectionView!.backgroundColor = UIColor(red: 32/255, green: 32/255, blue: 32/255, alpha: 1.0)
+        self.collectionView!.backgroundColor = PWMColor.mainColor()
         self.collectionView!.showsVerticalScrollIndicator = false
 
         // Set Navigationbar Button
@@ -53,15 +53,17 @@ class PWMMainVC: UICollectionViewController {
         
         // Set Subviews
         recentPhotoContainer = UIView()
-        recentPhotoContainer!.backgroundColor = UIColor(red: 32/255, green: 32/255, blue: 32/255, alpha: 1.0)
+        recentPhotoContainer!.backgroundColor = PWMColor.mainColor()
         self.view.addSubview(recentPhotoContainer!)
         
         recentPhotoView = UIImageView()
-        recentPhotoView!.backgroundColor = UIColor.grayColor()
+        recentPhotoView!.backgroundColor = PWMColor.mainColor()
+        recentPhotoView!.contentMode = UIViewContentMode.ScaleAspectFit
+        recentPhotoView?.image = Camera()[0]
         recentPhotoContainer!.addSubview(recentPhotoView!)
         
         bottomBar = UIView()
-        bottomBar!.backgroundColor = UIColor(red: 32/255, green: 32/255, blue: 32/255, alpha: 1.0)
+        bottomBar!.backgroundColor = PWMColor.mainColor()
         self.view.addSubview(bottomBar!)
         
         // Do any additional setup after loading the view.
@@ -122,17 +124,16 @@ class PWMMainVC: UICollectionViewController {
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        //let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath)
-        
         // Configure the cell
         /* TestCode
-        let cellColor = UIColor(red: CGFloat(arc4random() % 100)/100, green: CGFloat(arc4random() % 100)/100, blue: CGFloat(arc4random() % 100)/100, alpha: 1.0)
-        cell.backgroundColor = cellColor
+        cell.backgroundColor = PWMColor.randomColor()
         cell.contentView.transform = CGAffineTransformMakeScale(1, -1)
         */
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! PWMPhotoStreamCell
-        cell.imageID = self.imageArray[indexPath.item]
+        let photo = Camera()[indexPath.item]
+        cell.imageView?.image = photo
+        cell.layoutIfNeeded()
         return cell
     }
     
@@ -166,6 +167,10 @@ class PWMMainVC: UICollectionViewController {
     
     }
     */
+    
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        recentPhotoView?.image = Camera()[indexPath.item]
+    }
     
     func NumberofCameraPhotos()->Int {
         let albums=PHAssetCollection.fetchAssetCollectionsWithType(PHAssetCollectionType.SmartAlbum, subtype: PHAssetCollectionSubtype.SmartAlbumUserLibrary, options: nil)
