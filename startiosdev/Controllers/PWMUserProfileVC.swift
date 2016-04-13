@@ -19,7 +19,7 @@ class PWMUserProfileVC: UIViewController {
             
             _accountTable = UITableView(frame: CGRectZero, style: UITableViewStyle.Grouped)
             _accountTable.backgroundColor = PWMColor.mainColor()
-            _accountTable.separatorStyle = UITableViewCellSeparatorStyle.None
+            _accountTable.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
             _accountTable.scrollEnabled = false
             _accountTable.showsVerticalScrollIndicator = false
             _accountTable.allowsSelection = true
@@ -66,21 +66,43 @@ class PWMUserProfileVC: UIViewController {
 
 // MARK:
 extension PWMUserProfileVC: UITableViewDelegate {
-
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
 }
 
 extension PWMUserProfileVC: UITableViewDataSource {
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 3
+        return 2
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        if section == 0 {
+            return 1
+        }
+        return 3
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("TestCell", forIndexPath: indexPath)
-        cell.backgroundColor = PWMColor.orangeColor()
+        cell.backgroundColor = PWMColor.whiteColor()
+        cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        if indexPath.section == 0 && indexPath.item == 0 {
+            cell.textLabel?.text = "我的邮箱"
+        }
+        else if indexPath.section == 1 && indexPath.item == 0 {
+            cell.textLabel?.text = "微信"
+        }
+        else if indexPath.section == 1 && indexPath.item == 1 {
+            cell.textLabel?.text = "新浪微博"
+        }
+        else if indexPath.section == 1 && indexPath.item == 2 {
+            cell.textLabel?.text = "网易乐乎"
+        }
         return cell
     }
+    
+//    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+//        return self.view.frame.height*0.2
+//    }
 }
