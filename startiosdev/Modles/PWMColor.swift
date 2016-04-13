@@ -9,6 +9,7 @@
 import UIKit
 
 private let darkLevel: CGFloat = 32/255
+private let lightLevel: CGFloat = 185/255
 
 func randomLevel() -> CGFloat {
     return CGFloat(arc4random() % 100) / 100
@@ -17,6 +18,10 @@ func randomLevel() -> CGFloat {
 class PWMColor: UIColor {
     class func mainColor() -> UIColor {
         return UIColor(white: darkLevel, alpha: 1.0)
+    }
+    
+    override class func lightGrayColor() -> UIColor {
+        return UIColor(white: lightLevel, alpha: 1.0)
     }
     
     override class func grayColor() -> UIColor {

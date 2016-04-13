@@ -8,7 +8,25 @@
 
 import UIKit
 
+struct mail {
+    var account: String
+}
+
+struct socialAccount {
+    enum SocialType {
+        case Wechat
+        case SinaWeibo
+        case Lofter
+        case mail
+    }
+    
+    var accountType: SocialType
+    var accountName: String
+    var accountLogState: Bool
+}
+
 class PWMUser: NSObject {
     static let sharedInstance = PWMUser()
     var isLogin: Bool = false
+    var mailAccounts: [mail] = []
 }
