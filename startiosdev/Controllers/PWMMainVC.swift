@@ -38,7 +38,7 @@ class PWMMainVC: UICollectionViewController {
 
         // Set Navigationbar Button
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "SideMenu"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(showSideMenu))
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "OneKey"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(oneKeyDone))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Albums"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(oneKeyDone))
         
         // Set Subviews
         recentPhotoContainer = UIView()
