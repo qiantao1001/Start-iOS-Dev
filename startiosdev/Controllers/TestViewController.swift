@@ -11,6 +11,7 @@ import SnapKit
 
 class TestViewController: UIViewController {
     lazy var textLabel = UILabel()
+    lazy var returnButton = UIButton(type: UIButtonType.Custom)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,11 +27,24 @@ class TestViewController: UIViewController {
         textLabel.snp_makeConstraints { (make) -> Void in
             make.center.equalTo(self.view)
         }
+        
+        returnButton.setTitle("Return", forState: UIControlState.Normal)
+        returnButton.setTitleColor(PWMColor.greenColor(), forState: UIControlState.Normal)
+        returnButton.addTarget(self, action: #selector(returnBack), forControlEvents: UIControlEvents.TouchUpInside)
+        self.view.addSubview(returnButton)
+        returnButton.snp_makeConstraints { (make) in
+            make.top.equalTo(textLabel.snp_bottom).offset(20)
+            make.centerX.equalTo(textLabel)
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func returnBack() {
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     // MARK: Events handle
