@@ -18,12 +18,13 @@ class PWMSideMenuVC: UIViewController {
             }
             
             _menuTable = UITableView()
-            _menuTable.backgroundColor = UIColor(red: 32/255, green: 32/255, blue: 32/255, alpha: 1.0)
+            _menuTable.backgroundColor = PWMColor.mainColor()
             _menuTable.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
             _menuTable.scrollEnabled = false
             _menuTable.showsVerticalScrollIndicator = false
-            
-            self.menuTable.registerClass(UITableViewCell.self, forCellReuseIdentifier: "TestCell")
+            _menuTable.allowsSelection = true
+            _menuTable.registerClass(UITableViewCell.self, forCellReuseIdentifier: "TestCell")
+            _menuTable.registerClass(UserProfileCell.self, forCellReuseIdentifier: "UserCell")
             
             _menuTable.delegate = self
             _menuTable.dataSource = self
@@ -67,6 +68,15 @@ extension PWMSideMenuVC: UITableViewDelegate {
         }
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        if indexPath.section == 0 {
+            PWMClient.sharedInstance.pwmNavVC?.pushViewController(PWMUserProfileVC(), animated: true)
+            PWMClient.sharedInstance.mainController?.closeDrawerAnimated(true, completion: nil)
+        }
+    }
+    
+    
 //    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 //        if section == 0 {
 //            return 0
@@ -85,16 +95,16 @@ extension PWMSideMenuVC: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("TestCell", forIndexPath: indexPath)
         if indexPath.section == 0 {
-            cell.backgroundColor = UIColor.orangeColor()
+            let userCell = tableView.dequeueReusableCellWithIdentifier("UserCell", forIndexPath: indexPath)
+            return userCell
         }
         else if indexPath.section == 1 {
-            cell.backgroundColor = UIColor.whiteColor()
+            
         }
         else {
-            cell.backgroundColor = UIColor.grayColor()
+            
         }
-        return cell
+        return UITableViewCell()
     }
 }

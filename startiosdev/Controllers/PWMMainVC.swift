@@ -62,6 +62,10 @@ class PWMMainVC: UICollectionViewController {
         
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        PWMClient.sharedInstance.mainController?.openDrawerGestureModeMask = []
+    }
+    
     func layout() {
         self.collectionView!.snp_makeConstraints { (make) in
             make.bottom.equalTo(bottomBar!)

@@ -135,8 +135,7 @@ class PWMPhotoManager: NSObject {
     // 获取实际尺寸图片：异步
     func asyncSetExactPhoto(photoView: UIImageView, at index: Int) {
         let options = PHImageRequestOptions()
-        options.synchronous = true
-        if assets.count == 0 {
+        if assets.count == 0 || assets.count <= index{
             photoView.image = nil
             return
         }
