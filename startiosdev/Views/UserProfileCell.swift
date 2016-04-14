@@ -22,7 +22,6 @@ class UserProfileCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
-        //test()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -63,10 +62,4 @@ class UserProfileCell: UITableViewCell {
         }
         
     }
-    
-    func test() -> Void {
-        self.backgroundColor = PWMColor.blueColor()
-        self.contentView.backgroundColor = PWMColor.redColor()
-    }
-
 }

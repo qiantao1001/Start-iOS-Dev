@@ -18,6 +18,9 @@
 		250562781CBDE47D00569461 /* UserProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250562771CBDE47D00569461 /* UserProfileCell.swift */; };
 		2505627A1CBDE7CC00569461 /* PWMUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250562791CBDE7CC00569461 /* PWMUser.swift */; };
 		2505627C1CBE0BBD00569461 /* PWMUserProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2505627B1CBE0BBD00569461 /* PWMUserProfileVC.swift */; };
+		2514223B1CBFB781000EC5FB /* PWMDetialInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2514223A1CBFB781000EC5FB /* PWMDetialInfoCell.swift */; };
+		2514223D1CBFBE07000EC5FB /* PWMMenuFunctionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2514223C1CBFBE07000EC5FB /* PWMMenuFunctionCell.swift */; };
+		2514223F1CBFCEF9000EC5FB /* PWMMenuData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2514223E1CBFCEF9000EC5FB /* PWMMenuData.swift */; };
 		2514CE381CA262B3009F6884 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2514CE371CA262B3009F6884 /* TestViewController.swift */; };
 		254E70411CA3969500290B97 /* CVAlbumList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254E70401CA3969500290B97 /* CVAlbumList.swift */; };
 		25A7C7001C911E330001C8BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A7C6FF1C911E330001C8BE /* AppDelegate.swift */; };
@@ -40,6 +43,9 @@
 		250562771CBDE47D00569461 /* UserProfileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileCell.swift; sourceTree = "<group>"; };
 		250562791CBDE7CC00569461 /* PWMUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PWMUser.swift; sourceTree = "<group>"; };
 		2505627B1CBE0BBD00569461 /* PWMUserProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PWMUserProfileVC.swift; sourceTree = "<group>"; };
+		2514223A1CBFB781000EC5FB /* PWMDetialInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PWMDetialInfoCell.swift; sourceTree = "<group>"; };
+		2514223C1CBFBE07000EC5FB /* PWMMenuFunctionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PWMMenuFunctionCell.swift; sourceTree = "<group>"; };
+		2514223E1CBFCEF9000EC5FB /* PWMMenuData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PWMMenuData.swift; sourceTree = "<group>"; };
 		2514CE371CA262B3009F6884 /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		254E70401CA3969500290B97 /* CVAlbumList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CVAlbumList.swift; sourceTree = "<group>"; };
 		25A7C6FC1C911E330001C8BE /* startiosdev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = startiosdev.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -135,6 +141,7 @@
 				250562311CBB8BD700569461 /* PWMColor.swift */,
 				250562731CBCE9A500569461 /* PWMPhotoManager.swift */,
 				250562791CBDE7CC00569461 /* PWMUser.swift */,
+				2514223E1CBFCEF9000EC5FB /* PWMMenuData.swift */,
 			);
 			path = Modles;
 			sourceTree = "<group>";
@@ -145,6 +152,8 @@
 				254E70401CA3969500290B97 /* CVAlbumList.swift */,
 				2505622F1CBA87FD00569461 /* PWMPhotoStreamCell.swift */,
 				250562771CBDE47D00569461 /* UserProfileCell.swift */,
+				2514223A1CBFB781000EC5FB /* PWMDetialInfoCell.swift */,
+				2514223C1CBFBE07000EC5FB /* PWMMenuFunctionCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -302,6 +311,7 @@
 				2505622A1CBA4DEB00569461 /* PWMMainVC.swift in Sources */,
 				2514CE381CA262B3009F6884 /* TestViewController.swift in Sources */,
 				2505627A1CBDE7CC00569461 /* PWMUser.swift in Sources */,
+				2514223D1CBFBE07000EC5FB /* PWMMenuFunctionCell.swift in Sources */,
 				254E70411CA3969500290B97 /* CVAlbumList.swift in Sources */,
 				2505622C1CBA4FF500569461 /* PWMSideMenuVC.swift in Sources */,
 				250562781CBDE47D00569461 /* UserProfileCell.swift in Sources */,
@@ -310,8 +320,10 @@
 				250562321CBB8BD700569461 /* PWMColor.swift in Sources */,
 				2505627C1CBE0BBD00569461 /* PWMUserProfileVC.swift in Sources */,
 				250562741CBCE9A500569461 /* PWMPhotoManager.swift in Sources */,
+				2514223B1CBFB781000EC5FB /* PWMDetialInfoCell.swift in Sources */,
 				250562261CBA4D4B00569461 /* PWMNavigationVC.swift in Sources */,
 				250562761CBD488300569461 /* PWMAlbumListVC.swift in Sources */,
+				2514223F1CBFCEF9000EC5FB /* PWMMenuData.swift in Sources */,
 				2505622E1CBA653D00569461 /* PWMClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -28,6 +28,7 @@ class PWMMainVC: UICollectionViewController {
         // self.clearsSelectionOnViewWillAppear = false
         // 解决collectionView存在初始偏移的问题
         self.automaticallyAdjustsScrollViewInsets = false
+        self.view.backgroundColor = PWMColor.mainColor()
         
         // Register cell classes
         self.collectionView!.registerClass(PWMPhotoStreamCell.self, forCellWithReuseIdentifier: reuseIdentifier)
@@ -70,11 +71,11 @@ class PWMMainVC: UICollectionViewController {
         self.collectionView!.snp_makeConstraints { (make) in
             make.bottom.equalTo(bottomBar!)
             make.left.right.equalTo(self.view)
-            make.height.equalTo(self.view).multipliedBy(0.52)
+            make.height.equalTo(self.view).multipliedBy(0.6)
         }
         
         recentPhotoContainer?.snp_makeConstraints(closure: { (make) in
-            make.bottom.equalTo(self.collectionView!.snp_top)
+            make.bottom.equalTo(self.collectionView!.snp_top).offset(-5.0)
             make.left.right.equalTo(self.view)
             make.top.equalTo(self.view).offset(UIApplication.sharedApplication().statusBarFrame.height + (self.navigationController?.navigationBar.frame.height)!)
         })

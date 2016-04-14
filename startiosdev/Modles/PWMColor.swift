@@ -20,6 +20,10 @@ class PWMColor: UIColor {
         return UIColor(white: darkLevel, alpha: 1.0)
     }
     
+    class func mainColorWithAlpha(alpha: CGFloat) -> UIColor {
+        return UIColor(white: darkLevel, alpha: alpha)
+    }
+    
     override class func lightGrayColor() -> UIColor {
         return UIColor(white: lightLevel, alpha: 1.0)
     }

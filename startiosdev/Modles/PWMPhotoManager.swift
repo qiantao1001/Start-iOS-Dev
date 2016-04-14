@@ -69,7 +69,7 @@ class PWMPhotoManager: NSObject {
         }
     }
     
-    private func cacheDefaultAlbum() {
+    func cacheDefaultAlbum() {
         cacher?.stopCachingImagesForAllAssets()
         self.assets.removeAll()
         let userLibrary = smartAlbumResults?.firstObject as! PHAssetCollection
@@ -80,13 +80,13 @@ class PWMPhotoManager: NSObject {
         cacher?.startCachingImagesForAssets(assets, targetSize: CGSizeMake(sideLength*2, sideLength*2), contentMode: PHImageContentMode.AspectFill, options: nil)
     }
     
-    func cacheAlbum(idx: Int) {
-        if idx <= 0 {
+    private func cacheAlbum(idx: Int) {
+        guard idx > 0 else {
             print("Error!!!")
             return
         }
-        cacher?.stopCachingImagesForAllAssets()
         
+        cacher?.stopCachingImagesForAllAssets()
         self.assets.removeAll()
         let collection = albumResults?.objectAtIndex(idx - 1) as! PHAssetCollection
         let assetResults: PHFetchResult = PHAsset.fetchAssetsInAssetCollection(collection, options: nil)
@@ -98,15 +98,18 @@ class PWMPhotoManager: NSObject {
     
     func change2Album(albumIdx: Int) {
         // 如果是默认相册
+        guard albumIdx >= 0 else {
+            print("Error albumIndex.\(#file)-\(#function)-\(#line)")
+            return
+        }
+        
         if albumIdx == 0 {
             cacheDefaultAlbum()
         }
         else if albumIdx > 0 {
             cacheAlbum(albumIdx)
         }
-        else {
-            print("Error albumIndx.\(#function)")
-        }
+
         currentAlbum = albumIdx
         PWMClient.sharedInstance.pwmMainVC?.refresh()
     }
@@ -134,12 +137,11 @@ class PWMPhotoManager: NSObject {
     
     // 获取实际尺寸图片：异步
     func asyncSetExactPhoto(photoView: UIImageView, at index: Int) {
-        let options = PHImageRequestOptions()
-        if assets.count == 0 || assets.count <= index{
+        if assets.isEmpty || assets.count <= index{
             photoView.image = nil
             return
         }
-        cacher?.requestImageForAsset(assets[index], targetSize: PHImageManagerMaximumSize, contentMode: PHImageContentMode.AspectFill, options: options, resultHandler: { (img, _) in
+        cacher?.requestImageForAsset(assets[index], targetSize: PHImageManagerMaximumSize, contentMode: PHImageContentMode.AspectFill, options: nil, resultHandler: { (img, _) in
             photoView.image = img
         })
     }
