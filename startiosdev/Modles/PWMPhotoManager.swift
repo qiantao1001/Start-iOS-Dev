@@ -80,7 +80,7 @@ class PWMPhotoManager: NSObject {
         cacher?.startCachingImagesForAssets(assets, targetSize: CGSizeMake(sideLength*2, sideLength*2), contentMode: PHImageContentMode.AspectFill, options: nil)
     }
     
-    func cacheAlbum(idx: Int) {
+    private func cacheAlbum(idx: Int) {
         guard idx > 0 else {
             print("Error!!!")
             return
