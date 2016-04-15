@@ -12,24 +12,25 @@ class PWMSideMenuVC: UIViewController {
     
     private var _menuTable: UITableView!
     private var menuTable: UITableView {
-        get {
-            if _menuTable != nil {
-                return _menuTable
-            }
-            
-            _menuTable = UITableView()
-            _menuTable.backgroundColor = UIColor(red: 32/255, green: 32/255, blue: 32/255, alpha: 1.0)
-            _menuTable.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
-            _menuTable.scrollEnabled = false
-            _menuTable.showsVerticalScrollIndicator = false
-            
-            self.menuTable.registerClass(UITableViewCell.self, forCellReuseIdentifier: "TestCell")
-            
-            _menuTable.delegate = self
-            _menuTable.dataSource = self
-            
+        if _menuTable != nil {
             return _menuTable
         }
+        
+        _menuTable = UITableView()
+        _menuTable.backgroundColor = PWMColor.mainColor()
+        _menuTable.separatorStyle = UITableViewCellSeparatorStyle.None
+        _menuTable.scrollEnabled = false
+        _menuTable.showsVerticalScrollIndicator = false
+        _menuTable.allowsSelection = true
+        _menuTable.registerClass(UITableViewCell.self, forCellReuseIdentifier: "TestCell")
+        _menuTable.registerClass(UserProfileCell.self, forCellReuseIdentifier: "UserCell")
+        _menuTable.registerClass(PWMDetialInfoCell.self, forCellReuseIdentifier: "InfoCell")
+        _menuTable.registerClass(PWMMenuFunctionCell.self, forCellReuseIdentifier: "FunctionCell")
+        
+        _menuTable.delegate = self
+        _menuTable.dataSource = self
+        
+        return _menuTable
     }
     
     // MARK: - Functions
@@ -47,6 +48,10 @@ class PWMSideMenuVC: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func infoButtonTapped() {
+        PWMClient.sharedInstance.pwmNavVC?.presentViewController(TestViewController(), animated: true, completion: nil)
     }
 
 }
@@ -67,6 +72,19 @@ extension PWMSideMenuVC: UITableViewDelegate {
         }
     }
     
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        if indexPath.section == 0 {
+            PWMClient.sharedInstance.pwmNavVC?.pushViewController(PWMUserProfileVC(), animated: true)
+        }
+        else if indexPath.section == 1 {
+            PWMClient.sharedInstance.pwmNavVC?.pushViewController(TestViewController(), animated: true)
+        }
+        PWMClient.sharedInstance.mainController?.closeDrawerAnimated(true, completion: nil)
+    }
+    
+    
 //    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 //        if section == 0 {
 //            return 0
@@ -85,16 +103,19 @@ extension PWMSideMenuVC: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("TestCell", forIndexPath: indexPath)
         if indexPath.section == 0 {
-            cell.backgroundColor = UIColor.orangeColor()
+            let userCell = tableView.dequeueReusableCellWithIdentifier("UserCell", forIndexPath: indexPath) as! UserProfileCell
+            return userCell
         }
         else if indexPath.section == 1 {
-            cell.backgroundColor = UIColor.whiteColor()
+            let functionCell = tableView.dequeueReusableCellWithIdentifier("FunctionCell", forIndexPath: indexPath) as! PWMMenuFunctionCell
+            functionCell.setTitle(PWMMenuData.sharedInstance.functionList[indexPath.item].title, withColor: PWMColor.whiteColor())
+            return functionCell
+            
         }
         else {
-            cell.backgroundColor = UIColor.grayColor()
+            let infoCell = tableView.dequeueReusableCellWithIdentifier("InfoCell", forIndexPath: indexPath) as! PWMDetialInfoCell
+            return infoCell
         }
-        return cell
     }
 }

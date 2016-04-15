@@ -24,8 +24,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let mainVC = PWMMainVC(collectionViewLayout: collectionViewLayout)
         let centerNav = PWMNavigationVC(rootViewController: mainVC)
         let sideMenuVC = PWMSideMenuVC()
-        let mainController = DrawerController(centerViewController: centerNav, leftDrawerViewController: sideMenuVC)
+        let albumListVC = PWMAlbumListVC()
+        let mainController = DrawerController(centerViewController: centerNav, leftDrawerViewController: sideMenuVC, rightDrawerViewController: albumListVC)
         mainController.maximumLeftDrawerWidth = UIScreen.mainScreen().bounds.width*0.6
+        mainController.maximumRightDrawerWidth = UIScreen.mainScreen().bounds.width*0.4
         mainController.openDrawerGestureModeMask = OpenDrawerGestureMode.PanningCenterView
         mainController.closeDrawerGestureModeMask = CloseDrawerGestureMode.All
         mainController.shouldStretchDrawer = false

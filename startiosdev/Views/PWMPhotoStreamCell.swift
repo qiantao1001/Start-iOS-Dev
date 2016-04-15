@@ -25,6 +25,16 @@ class PWMPhotoStreamCell: UICollectionViewCell {
         })
     }
     
+    override func select(sender: AnyObject?) {
+        super.select(sender)
+        let cover = UIView()
+        cover.backgroundColor = PWMColor.greenColor()
+        self.imageView?.addSubview(cover)
+        cover.snp_makeConstraints { (make) in
+            make.edges.equalTo(self.imageView!)
+        }
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

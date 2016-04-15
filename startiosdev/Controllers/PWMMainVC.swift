@@ -19,19 +19,8 @@ class PWMMainVC: UICollectionViewController {
     private var recentPhotoContainer: UIView?
     private var recentPhotoView: UIImageView?
     private var bottomBar: UIView?
+    private var cellSize: CGSize = CGSizeZero
     
-    var imageArray: [Int] = {
-        
-        var array: [Int] = []
-        
-        for i in 0...Camera().count-1 {
-            array.append(i)
-        }
-        
-        return array
-    }()
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -39,6 +28,7 @@ class PWMMainVC: UICollectionViewController {
         // self.clearsSelectionOnViewWillAppear = false
         // 解决collectionView存在初始偏移的问题
         self.automaticallyAdjustsScrollViewInsets = false
+        self.view.backgroundColor = PWMColor.mainColor()
         
         // Register cell classes
         self.collectionView!.registerClass(PWMPhotoStreamCell.self, forCellWithReuseIdentifier: reuseIdentifier)
@@ -49,7 +39,7 @@ class PWMMainVC: UICollectionViewController {
 
         // Set Navigationbar Button
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "SideMenu"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(showSideMenu))
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "OneKey"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(oneKeyDone))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Albums"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(oneKeyDone))
         
         // Set Subviews
         recentPhotoContainer = UIView()
@@ -59,8 +49,9 @@ class PWMMainVC: UICollectionViewController {
         recentPhotoView = UIImageView()
         recentPhotoView!.backgroundColor = PWMColor.mainColor()
         recentPhotoView!.contentMode = UIViewContentMode.ScaleAspectFit
-        recentPhotoView?.image = Camera()[0]
-        recentPhotoContainer!.addSubview(recentPhotoView!)
+        recentPhotoView!.clipsToBounds = true
+        PWMPhotoManager.sharedInstance.asyncSetExactPhoto(recentPhotoView!, at: 0)
+        recentPhotoContainer?.addSubview(recentPhotoView!)
         
         bottomBar = UIView()
         bottomBar!.backgroundColor = PWMColor.mainColor()
@@ -72,15 +63,19 @@ class PWMMainVC: UICollectionViewController {
         
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        PWMClient.sharedInstance.mainController?.openDrawerGestureModeMask = []
+    }
+    
     func layout() {
         self.collectionView!.snp_makeConstraints { (make) in
             make.bottom.equalTo(bottomBar!)
             make.left.right.equalTo(self.view)
-            make.height.equalTo(self.view).multipliedBy(0.52)
+            make.height.equalTo(self.view).multipliedBy(0.6)
         }
         
         recentPhotoContainer?.snp_makeConstraints(closure: { (make) in
-            make.bottom.equalTo(self.collectionView!.snp_top)
+            make.bottom.equalTo(self.collectionView!.snp_top).offset(-5.0)
             make.left.right.equalTo(self.view)
             make.top.equalTo(self.view).offset(UIApplication.sharedApplication().statusBarFrame.height + (self.navigationController?.navigationBar.frame.height)!)
         })
@@ -102,7 +97,13 @@ class PWMMainVC: UICollectionViewController {
     }
     
     func oneKeyDone() {
-        PWMClient.sharedInstance.pwmMainVC?.navigationController?.pushViewController(TestViewController(), animated: true)
+        //PWMClient.sharedInstance.pwmMainVC?.navigationController?.pushViewController(TestViewController(), animated: true)
+        PWMClient.sharedInstance.mainController?.toggleRightDrawerSideAnimated(true, completion: nil)
+    }
+    
+    func refresh() {
+        self.collectionView?.reloadData()
+        PWMPhotoManager.sharedInstance.asyncSetExactPhoto(self.recentPhotoView!, at: 0)
     }
 
     override func didReceiveMemoryWarning() {
@@ -111,7 +112,6 @@ class PWMMainVC: UICollectionViewController {
     }
 
     // MARK: - UICollectionViewDataSource
-
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
@@ -120,7 +120,7 @@ class PWMMainVC: UICollectionViewController {
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return NumberofCameraPhotos()
+        return PWMPhotoManager.sharedInstance.albumNameList[PWMPhotoManager.sharedInstance.currentAlbum].count
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -131,55 +131,16 @@ class PWMMainVC: UICollectionViewController {
         */
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! PWMPhotoStreamCell
-        let photo = Camera()[indexPath.item]
-        cell.imageView?.image = photo
+        cell.imageView?.image = PWMPhotoManager.sharedInstance.getAlbumPhoto(photoIdx: indexPath.item, size: cellSize)
         cell.layoutIfNeeded()
         return cell
     }
     
     // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(collectionView: UICollectionView, shouldHighlightItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(collectionView: UICollectionView, shouldShowMenuForItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(collectionView: UICollectionView, canPerformAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool {
-        return false
-    }
-
-    override func collectionView(collectionView: UICollectionView, performAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) {
-    
-    }
-    */
-    
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        recentPhotoView?.image = Camera()[indexPath.item]
+        print("Did select cell of \(indexPath.item).")
+        PWMPhotoManager.sharedInstance.asyncSetExactPhoto(recentPhotoView!, at: indexPath.item)
     }
-    
-    func NumberofCameraPhotos()->Int {
-        let albums=PHAssetCollection.fetchAssetCollectionsWithType(PHAssetCollectionType.SmartAlbum, subtype: PHAssetCollectionSubtype.SmartAlbumUserLibrary, options: nil)
-        let collection=albums[0] as! PHAssetCollection
-        let Assets=PHAsset.fetchAssetsInAssetCollection(collection, options: PHFetchOptions?.init())
-        let NumbersofCameraPhotos = Assets.count
-        return NumbersofCameraPhotos
-    }
-
 }
 
 // MARK: - Extensions
@@ -190,38 +151,11 @@ extension PWMMainVC: UICollectionViewDelegateFlowLayout {
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let sideLength = CGFloat((self.collectionView!.frame.width - 15) / 4)
+        cellSize = CGSizeMake(sideLength, sideLength)
         return CGSizeMake(sideLength, sideLength)
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
         return 5.0
     }
-}
-
-func Camera()->[UIImage]{
-    //获取系统相册
-    let albums: PHFetchResult = PHAssetCollection.fetchAssetCollectionsWithType(.SmartAlbum, subtype: PHAssetCollectionSubtype.SmartAlbumUserLibrary, options: PHFetchOptions?.init())
-    
-    // 需要加判断逻辑，否则会挂
-    
-    let collection = albums[0] as! PHAssetCollection
-    let assets = PHAsset.fetchAssetsInAssetCollection(collection, options: PHFetchOptions?.init())
-    let numbersofphotos = assets.count
-    var Image: [UIImage] = []
-    var img: UIImage?
-    for i in 0...numbersofphotos - 1 {
-        let fianl = assets[i] as! PHAsset
-        let screenSize: CGSize = UIScreen.mainScreen().bounds.size
-        let targetSize = CGSizeMake(screenSize.width, screenSize.height)
-        let options = PHImageRequestOptions()
-        options.resizeMode = PHImageRequestOptionsResizeMode.Exact
-        
-        // 请求获取照片
-        PHImageManager.defaultManager().requestImageForAsset(fianl, targetSize: targetSize, contentMode: PHImageContentMode.AspectFit, options: options) { (result, info) in
-            img = result
-        }
-        
-        Image.append(img!)
-    }
-    return Image
 }

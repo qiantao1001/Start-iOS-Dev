@@ -15,6 +15,9 @@ class PWMNavigationVC: UINavigationController {
 
         self.navigationBar.barTintColor = UIColor(red: 32/255, green: 32/255, blue: 32/255, alpha: 0.2)
         self.navigationBar.tintColor = UIColor.whiteColor()
+        var navTitleAttributs:[String : AnyObject] = Dictionary()
+        navTitleAttributs[NSForegroundColorAttributeName] = PWMColor.whiteColor()
+        self.navigationBar.titleTextAttributes = navTitleAttributs
         //UIApplication.sharedApplication().setStatusBarStyle(.Default, animated: true)
         //self.navigationBar.translucent = true
     }
