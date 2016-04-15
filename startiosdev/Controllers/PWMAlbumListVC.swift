@@ -69,7 +69,7 @@ extension PWMAlbumListVC: UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("tableCell", forIndexPath: indexPath)
         cell.backgroundColor = PWMColor.grayColor()
-        cell.textLabel?.text = PWMPhotoManager.sharedInstance.albumNameList[indexPath.item].title
+        cell.textLabel?.text = PWMPhotoManager.sharedInstance.albumList[indexPath.item].title
         cell.textLabel?.textColor = PWMColor.whiteColor()
         return cell
     }
