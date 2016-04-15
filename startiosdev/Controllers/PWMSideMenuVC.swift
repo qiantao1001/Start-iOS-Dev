@@ -75,13 +75,14 @@ extension PWMSideMenuVC: UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        PWMClient.sharedInstance.mainController?.closeDrawerAnimated(true, completion: nil)
         if indexPath.section == 0 {
             PWMClient.sharedInstance.pwmNavVC?.pushViewController(PWMUserProfileVC(), animated: true)
         }
         else if indexPath.section == 1 {
             PWMClient.sharedInstance.pwmNavVC?.pushViewController(TestViewController(), animated: true)
         }
-        PWMClient.sharedInstance.mainController?.closeDrawerAnimated(true, completion: nil)
+        //PWMClient.sharedInstance.mainController?.closeDrawerAnimated(true, completion: nil)
     }
     
     

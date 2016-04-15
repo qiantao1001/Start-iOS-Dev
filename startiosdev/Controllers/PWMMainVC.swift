@@ -50,7 +50,7 @@ class PWMMainVC: UICollectionViewController {
         recentPhotoView!.backgroundColor = PWMColor.mainColor()
         recentPhotoView!.contentMode = UIViewContentMode.ScaleAspectFit
         recentPhotoView!.clipsToBounds = true
-        PWMPhotoManager.sharedInstance.asyncSetExactPhoto(recentPhotoView!, at: 0)
+        PWMPhotoManager.sharedInstance.SetFullSizePhotoFor(recentPhotoView!, atIndex: 0)
         recentPhotoContainer?.addSubview(recentPhotoView!)
         
         bottomBar = UIView()
@@ -103,7 +103,7 @@ class PWMMainVC: UICollectionViewController {
     
     func refresh() {
         self.collectionView?.reloadData()
-        PWMPhotoManager.sharedInstance.asyncSetExactPhoto(self.recentPhotoView!, at: 0)
+        PWMPhotoManager.sharedInstance.SetFullSizePhotoFor(self.recentPhotoView!, atIndex: 0)
     }
 
     override func didReceiveMemoryWarning() {
@@ -120,7 +120,11 @@ class PWMMainVC: UICollectionViewController {
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return PWMPhotoManager.sharedInstance.albumNameList[PWMPhotoManager.sharedInstance.currentAlbum].count
+        guard let album = PWMPhotoManager.sharedInstance.currentAlbum else {
+            PWMLog("currentAlbum is nil")
+            return 0
+        }
+        return album.assetCount
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -131,15 +135,13 @@ class PWMMainVC: UICollectionViewController {
         */
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! PWMPhotoStreamCell
-        cell.imageView?.image = PWMPhotoManager.sharedInstance.getAlbumPhoto(photoIdx: indexPath.item, size: cellSize)
-        cell.layoutIfNeeded()
+        PWMPhotoManager.sharedInstance.setCachedPhotoFor(cell.imageView!, atIndex: indexPath.item)
         return cell
     }
     
     // MARK: UICollectionViewDelegate
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        print("Did select cell of \(indexPath.item).")
-        PWMPhotoManager.sharedInstance.asyncSetExactPhoto(recentPhotoView!, at: indexPath.item)
+        PWMPhotoManager.sharedInstance.SetFullSizePhotoFor(recentPhotoView!, atIndex: indexPath.item)
     }
 }
 
