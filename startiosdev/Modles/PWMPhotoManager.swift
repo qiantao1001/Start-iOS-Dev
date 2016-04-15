@@ -163,7 +163,10 @@ class PWMPhotoManager: NSObject {
             return
         }
         
-        cacher.requestImageForAsset(currentAlbum!.assets[index], targetSize: PHImageManagerMaximumSize, contentMode: PHImageContentMode.AspectFill, options: nil, resultHandler: { (img, _) in
+        let size = CGSizeMake(UIScreen.mainScreen().bounds.width*2, UIScreen.mainScreen().bounds.height*0.6)
+        let options = PHImageRequestOptions()
+        options.deliveryMode = .Opportunistic
+        cacher.requestImageForAsset(currentAlbum!.assets[index], targetSize: size, contentMode: PHImageContentMode.AspectFill, options: nil, resultHandler: { (img, _) in
             photoView.image = img
         })
     }
