@@ -14,6 +14,8 @@ import Photos
 func PWMLog(msg: String) {
     print("PWM:\(#file)-\(#function)-\(#line):\(msg)")
 }
+
+// 点和像素间需要转换
 private let sideLength:CGFloat = (UIScreen.mainScreen().bounds.width - 15)/2
 
 // 逻辑相册数据结果
@@ -171,6 +173,7 @@ class PWMPhotoManager: NSObject {
         })
     }
     
+    // 测试代码
     func test() {
         print(albumList)
     }
