@@ -1,5 +1,8 @@
 PODS:
   - Alamofire (3.1.4)
+  - ChameleonFramework/Default (2.1.0)
+  - ChameleonFramework/Swift (2.1.0):
+    - ChameleonFramework/Default
   - DrawerController (1.1.0):
     - DrawerController/Core (= 1.1.0)
     - DrawerController/DrawerVisualStates (= 1.1.0)
@@ -12,6 +15,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 3.0)
+  - ChameleonFramework/Swift
   - DrawerController
   - EasyAnimation
   - SnapKit
@@ -19,6 +23,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   Alamofire: fbc829692f351fa1d8a31dd75fd7f7f56fea31fb
+  ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   DrawerController: 8fd56e6238399a08c4af054fbea0ef8669cd81f3
   EasyAnimation: 4aabd439b4038f48d72939cc19d6220363b3206e
   SnapKit: eff58d6e3451bf2f482db2eccf86aecf371dc62d

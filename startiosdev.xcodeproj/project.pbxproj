@@ -21,6 +21,7 @@
 		2514223B1CBFB781000EC5FB /* PWMDetialInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2514223A1CBFB781000EC5FB /* PWMDetialInfoCell.swift */; };
 		2514223D1CBFBE07000EC5FB /* PWMMenuFunctionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2514223C1CBFBE07000EC5FB /* PWMMenuFunctionCell.swift */; };
 		2514223F1CBFCEF9000EC5FB /* PWMMenuData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2514223E1CBFCEF9000EC5FB /* PWMMenuData.swift */; };
+		251422441CC46CE3000EC5FB /* PhotoInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251422431CC46CE3000EC5FB /* PhotoInfo.swift */; };
 		2514CE381CA262B3009F6884 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2514CE371CA262B3009F6884 /* TestViewController.swift */; };
 		254E70411CA3969500290B97 /* CVAlbumList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254E70401CA3969500290B97 /* CVAlbumList.swift */; };
 		25A7C7001C911E330001C8BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A7C6FF1C911E330001C8BE /* AppDelegate.swift */; };
@@ -46,6 +47,7 @@
 		2514223A1CBFB781000EC5FB /* PWMDetialInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PWMDetialInfoCell.swift; sourceTree = "<group>"; };
 		2514223C1CBFBE07000EC5FB /* PWMMenuFunctionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PWMMenuFunctionCell.swift; sourceTree = "<group>"; };
 		2514223E1CBFCEF9000EC5FB /* PWMMenuData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PWMMenuData.swift; sourceTree = "<group>"; };
+		251422431CC46CE3000EC5FB /* PhotoInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoInfo.swift; sourceTree = "<group>"; };
 		2514CE371CA262B3009F6884 /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		254E70401CA3969500290B97 /* CVAlbumList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CVAlbumList.swift; sourceTree = "<group>"; };
 		25A7C6FC1C911E330001C8BE /* startiosdev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = startiosdev.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -150,6 +152,7 @@
 				250562731CBCE9A500569461 /* PWMPhotoManager.swift */,
 				250562791CBDE7CC00569461 /* PWMUser.swift */,
 				2514223E1CBFCEF9000EC5FB /* PWMMenuData.swift */,
+				251422431CC46CE3000EC5FB /* PhotoInfo.swift */,
 			);
 			path = Modles;
 			sourceTree = "<group>";
@@ -316,6 +319,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				251422441CC46CE3000EC5FB /* PhotoInfo.swift in Sources */,
 				2505622A1CBA4DEB00569461 /* PWMMainVC.swift in Sources */,
 				2514CE381CA262B3009F6884 /* TestViewController.swift in Sources */,
 				2505627A1CBDE7CC00569461 /* PWMUser.swift in Sources */,
