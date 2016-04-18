@@ -20,6 +20,7 @@ class PWMMainVC: UICollectionViewController {
     private var recentPhotoView: UIImageView?
     private var bottomBar: UIView?
     private var cellSize: CGSize = CGSizeZero
+    let cellSelectedIndicator: UIImage? = UIImage(named: "Selected")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,24 +28,24 @@ class PWMMainVC: UICollectionViewController {
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         // 解决collectionView存在初始偏移的问题
-        self.automaticallyAdjustsScrollViewInsets = false
-        self.view.backgroundColor = PWMColor.mainColor()
+        automaticallyAdjustsScrollViewInsets = false
+        view.backgroundColor = PWMColor.mainColor()
         
         // Register cell classes
-        self.collectionView!.registerClass(PWMPhotoStreamCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-        self.collectionView!.delegate = self
-        self.collectionView!.dataSource = self
-        self.collectionView!.backgroundColor = PWMColor.mainColor()
-        self.collectionView!.showsVerticalScrollIndicator = false
+        collectionView!.registerClass(PWMPhotoStreamCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        collectionView!.delegate = self
+        collectionView!.dataSource = self
+        collectionView!.backgroundColor = PWMColor.mainColor()
+        collectionView!.showsVerticalScrollIndicator = false
 
         // Set Navigationbar Button
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "SideMenu"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(showSideMenu))
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Albums"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(oneKeyDone))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "SideMenu"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(showSideMenu))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Albums"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(oneKeyDone))
         
         // Set Subviews
         recentPhotoContainer = UIView()
         recentPhotoContainer!.backgroundColor = PWMColor.mainColor()
-        self.view.addSubview(recentPhotoContainer!)
+        view.addSubview(recentPhotoContainer!)
         
         recentPhotoView = UIImageView()
         recentPhotoView!.backgroundColor = PWMColor.mainColor()
@@ -55,7 +56,7 @@ class PWMMainVC: UICollectionViewController {
         
         bottomBar = UIView()
         bottomBar!.backgroundColor = PWMColor.mainColor()
-        self.view.addSubview(bottomBar!)
+        view.addSubview(bottomBar!)
         
         // Do any additional setup after loading the view.
         // 1.Layout
@@ -68,7 +69,7 @@ class PWMMainVC: UICollectionViewController {
     }
     
     func layout() {
-        self.collectionView!.snp_makeConstraints { (make) in
+        collectionView!.snp_makeConstraints { (make) in
             make.bottom.equalTo(bottomBar!)
             make.left.right.equalTo(self.view)
             make.height.equalTo(self.view).multipliedBy(0.6)
@@ -102,7 +103,7 @@ class PWMMainVC: UICollectionViewController {
     }
     
     func refresh() {
-        self.collectionView?.reloadData()
+        collectionView?.reloadData()
         PWMPhotoManager.sharedInstance.SetFullSizePhotoFor(self.recentPhotoView!, atIndex: 0)
     }
 
@@ -135,13 +136,20 @@ class PWMMainVC: UICollectionViewController {
         */
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! PWMPhotoStreamCell
-        PWMPhotoManager.sharedInstance.setCachedPhotoFor(cell.imageView!, atIndex: indexPath.item)
+        PWMPhotoManager.sharedInstance.setCachedPhotoFor(cell.imageView, atIndex: indexPath.item)
         return cell
     }
     
     // MARK: UICollectionViewDelegate
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! PWMPhotoStreamCell
         PWMPhotoManager.sharedInstance.SetFullSizePhotoFor(recentPhotoView!, atIndex: indexPath.item)
+        cell.setSeleted(withIndicator: cellSelectedIndicator)
+    }
+    
+    override func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! PWMPhotoStreamCell
+        cell.setUnSelected()
     }
 }
 
