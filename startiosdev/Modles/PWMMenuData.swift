@@ -21,14 +21,18 @@ class PWMMenuData: NSObject {
     override init() {
         super.init()
         
-        addFunItemWithTitle("管理水印")
-        addFunItemWithTitle("新建水印")
-        addFunItemWithTitle("导入水印")
-        addFunItemWithTitle("商城")
+        addFunItemWithTitle("管理水印", andIcon: UIImage(named: "Manager"))
+        addFunItemWithTitle("新建水印", andIcon: UIImage(named: "Add"))
+        addFunItemWithTitle("导入水印", andIcon: UIImage(named: "Import"))
+        addFunItemWithTitle("商城", andIcon: UIImage(named: "Store"))
     }
     
     func addFunItemWithTitle(title: String) {
         functionList.append(FunctionItem(title: title, icon: nil, detailInfo: nil))
+    }
+    
+    func addFunItemWithTitle(title: String, andIcon icon: UIImage?) {
+        functionList.append(FunctionItem(title: title, icon:icon, detailInfo: nil))
     }
     
 }

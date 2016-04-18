@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>ChameleonFramework.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>DrawerController.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -42,12 +47,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>43F47510736F6428561A1028EF811FBA</key>
+		<key>4735F392892D2723410CADEA32153263</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>98CA229DF63B616FEC0EE7832C44D07B</key>
+		<key>4B2C4F20A4F2BC2831148E19E7361F23</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5172ACAB7FEA22813859DC97CA0AA16F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>66F65B0B3E79247BFE0970B4EA5F342B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -58,11 +73,6 @@
 			<true/>
 		</dict>
 		<key>D083682CF36071495A66680CF5CE2BA5</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>EB4A1AEADBA94B2E047C858ABFDD2D05</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -11,6 +11,7 @@ import UIKit
 class PWMMenuFunctionCell: UITableViewCell {
     //let indicator = UIImageView(image: UIImage(named: "Arrow"))
     let cellView = UIView()
+    let iconView = UIImageView()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -26,6 +27,13 @@ class PWMMenuFunctionCell: UITableViewCell {
         
         textLabel?.backgroundColor = PWMColor.clearColor()
         textLabel?.textAlignment = NSTextAlignment.Center
+        
+        iconView.backgroundColor = PWMColor.clearColor()
+        cellView.addSubview(iconView)
+        iconView.snp_makeConstraints { (make) in
+            make.centerY.equalTo(cellView)
+            make.left.equalTo(cellView).offset(contentView.frame.width*0.1)
+        }
         
         //因为感觉丑，所以删掉了
 //        contentView.addSubview(indicator)
@@ -48,6 +56,11 @@ class PWMMenuFunctionCell: UITableViewCell {
     func setTitle(title: String, withColor color: UIColor) {
         textLabel?.text = title
         textLabel?.textColor = color
+        textLabel?.font = UIFont.boldSystemFontOfSize(20)
+    }
+    
+    func setIcon(icon: UIImage?) {
+        iconView.image = icon
     }
 
 }

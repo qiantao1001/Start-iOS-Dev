@@ -111,6 +111,7 @@ extension PWMSideMenuVC: UITableViewDataSource {
         else if indexPath.section == 1 {
             let functionCell = tableView.dequeueReusableCellWithIdentifier("FunctionCell", forIndexPath: indexPath) as! PWMMenuFunctionCell
             functionCell.setTitle(PWMMenuData.sharedInstance.functionList[indexPath.item].title, withColor: PWMColor.whiteColor())
+            functionCell.setIcon(PWMMenuData.sharedInstance.functionList[indexPath.item].icon)
             return functionCell
             
         }

@@ -8,5 +8,6 @@ target 'startiosdev' do
     pod 'SnapKit'
     pod 'EasyAnimation'
     pod 'DrawerController'
+    pod 'ChameleonFramework/Swift'
 end
 
