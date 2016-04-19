@@ -84,14 +84,6 @@ extension PWMSideMenuVC: UITableViewDelegate {
         }
         //PWMClient.sharedInstance.mainController?.closeDrawerAnimated(true, completion: nil)
     }
-    
-    
-//    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        if section == 0 {
-//            return 0
-//        }
-//        return self.view.frame.height*0.1
-//    }
 }
 
 extension PWMSideMenuVC: UITableViewDataSource {

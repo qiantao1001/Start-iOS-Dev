@@ -9,5 +9,6 @@ target 'startiosdev' do
     pod 'EasyAnimation'
     pod 'DrawerController'
     pod 'ChameleonFramework/Swift'
+    pod 'Permission'
 end
 
