@@ -24,6 +24,7 @@
 		251422441CC46CE3000EC5FB /* PhotoInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251422431CC46CE3000EC5FB /* PhotoInfo.swift */; };
 		2514CE381CA262B3009F6884 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2514CE371CA262B3009F6884 /* TestViewController.swift */; };
 		254E70411CA3969500290B97 /* CVAlbumList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254E70401CA3969500290B97 /* CVAlbumList.swift */; };
+		254EE6521CC673350097F0AE /* PWMPermissionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254EE6511CC673350097F0AE /* PWMPermissionVC.swift */; };
 		25A7C7001C911E330001C8BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A7C6FF1C911E330001C8BE /* AppDelegate.swift */; };
 		25A7C7071C911E330001C8BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25A7C7061C911E330001C8BE /* Assets.xcassets */; };
 		25C3881B1CA0DE0300C559DF /* Youyuan.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 25C3881A1CA0DE0300C559DF /* Youyuan.ttf */; };
@@ -50,6 +51,7 @@
 		251422431CC46CE3000EC5FB /* PhotoInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoInfo.swift; sourceTree = "<group>"; };
 		2514CE371CA262B3009F6884 /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		254E70401CA3969500290B97 /* CVAlbumList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CVAlbumList.swift; sourceTree = "<group>"; };
+		254EE6511CC673350097F0AE /* PWMPermissionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PWMPermissionVC.swift; sourceTree = "<group>"; };
 		25A7C6FC1C911E330001C8BE /* startiosdev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = startiosdev.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		25A7C6FF1C911E330001C8BE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		25A7C7061C911E330001C8BE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 				2505622B1CBA4FF500569461 /* PWMSideMenuVC.swift */,
 				250562751CBD488300569461 /* PWMAlbumListVC.swift */,
 				2505627B1CBE0BBD00569461 /* PWMUserProfileVC.swift */,
+				254EE6511CC673350097F0AE /* PWMPermissionVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -321,6 +324,7 @@
 			files = (
 				251422441CC46CE3000EC5FB /* PhotoInfo.swift in Sources */,
 				2505622A1CBA4DEB00569461 /* PWMMainVC.swift in Sources */,
+				254EE6521CC673350097F0AE /* PWMPermissionVC.swift in Sources */,
 				2514CE381CA262B3009F6884 /* TestViewController.swift in Sources */,
 				2505627A1CBDE7CC00569461 /* PWMUser.swift in Sources */,
 				2514223D1CBFBE07000EC5FB /* PWMMenuFunctionCell.swift in Sources */,

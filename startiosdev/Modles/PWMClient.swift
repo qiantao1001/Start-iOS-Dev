@@ -12,8 +12,9 @@ import DrawerController
 class PWMClient: NSObject {
     static let sharedInstance = PWMClient()
     
-    var mainController :DrawerController? = nil
-    var pwmNavVC : PWMNavigationVC? = nil
-    var pwmMainVC : PWMMainVC? = nil
-    var pwmSideMenuVC : PWMSideMenuVC? = nil
+    var window: UIWindow!
+    var mainController :DrawerController!
+    var pwmNavVC : PWMNavigationVC!
+    var pwmMainVC : PWMMainVC!
+    var pwmSideMenuVC : PWMSideMenuVC!
 }
