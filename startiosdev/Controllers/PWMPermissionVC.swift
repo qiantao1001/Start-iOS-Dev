@@ -14,9 +14,12 @@ class PWMPermissionVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        log.info("Need asking permission.")
         self.view.backgroundColor = PWMColor.mainColor()
         
         Permission.Photos.request { (status) in
+            
+            log.info("User permission result is: \(status)")
             if status == .Authorized {
                 PWMClient.sharedInstance.window.rootViewController = PWMClient.sharedInstance.mainController
                 PWMClient.sharedInstance.window.makeKeyAndVisible()
@@ -25,8 +28,6 @@ class PWMPermissionVC: UIViewController {
                 self.showTips()
             }
         }
-        
-        
     }
 
     override func didReceiveMemoryWarning() {

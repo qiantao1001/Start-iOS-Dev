@@ -4,22 +4,12 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Alamofire.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>ChameleonFramework.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>DrawerController.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>EasyAnimation.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -39,7 +29,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Toucan.xcscheme</key>
+		<key>XCGLogger.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -47,22 +37,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>34A4155AFA9A0450674C4AD964557904</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>3A9CACEFF71BA5334D3E6195CA9266A1</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>432ECC54282C84882B482CCB4CF227FC</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>489D310CCCFFB11C61B203A0ECEC82AD</key>
+		<key>36E6A7BE5FE83BE66CE6E3983079451F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -72,7 +47,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A376E868ED408EE8EEBD1DDBCE639EF5</key>
+		<key>865440917CA1D6890E7A77765AF0DE4E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -83,6 +58,11 @@
 			<true/>
 		</dict>
 		<key>E9DCA655D10F3579F9845B8185EE947F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F195124B0695472F8820CFA34D8905B9</key>
 		<dict>
 			<key>primary</key>
 			<true/>

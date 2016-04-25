@@ -3,12 +3,10 @@ platform :ios, '8.0'
 use_frameworks!
 
 target 'startiosdev' do
-    pod 'Alamofire', '~> 3.0'
-    pod 'Toucan'
     pod 'SnapKit'
-    pod 'EasyAnimation'
     pod 'DrawerController'
     pod 'ChameleonFramework/Swift'
     pod 'Permission'
+    pod 'XCGLogger', '~> 3.3'
 end
 

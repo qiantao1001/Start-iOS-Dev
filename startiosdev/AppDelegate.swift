@@ -9,6 +9,9 @@
 import UIKit
 import DrawerController
 import Permission
+import XCGLogger
+
+let log = XCGLogger.defaultInstance()
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,9 +20,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // 配置日志
+        setupLog()
+        
+        // 纯代码构建窗口UI
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        
-        
         
         let collectionViewLayout = UICollectionViewFlowLayout()
         collectionViewLayout.scrollDirection = UICollectionViewScrollDirection.Vertical
@@ -72,12 +78,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
+    func setupLog() {
+        log.setup(.Debug, showLogIdentifier: true, showFunctionName: true, showThreadName: true, showLogLevel: true, showFileNames: true, showLineNumbers: true, showDate: true, writeToFile: nil, fileLogLevel: nil)
+        //log.xcodeColorsEnabled = true
+    }
+    
     func checkPermission() -> Bool {
         
         let permission = Permission.Photos
+        log.debug("Default Photos permission result is: \(permission.status)")
         
-        print(permission.status)
         guard permission.status != .Authorized else {
+            log.info("Pass permission asking.")
             return true
         }
         
