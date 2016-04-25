@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'D5FD443FBC7F133C63ACE763'
+               BlueprintIdentifier = '6D49D543F457F2E2331690DC'
                BlueprintName = 'Permission'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'Permission.framework'>

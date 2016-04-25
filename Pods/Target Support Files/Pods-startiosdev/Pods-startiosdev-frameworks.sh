@@ -84,20 +84,16 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "Pods-startiosdev/Alamofire.framework"
   install_framework "Pods-startiosdev/ChameleonFramework.framework"
   install_framework "Pods-startiosdev/DrawerController.framework"
-  install_framework "Pods-startiosdev/EasyAnimation.framework"
   install_framework "Pods-startiosdev/Permission.framework"
   install_framework "Pods-startiosdev/SnapKit.framework"
-  install_framework "Pods-startiosdev/Toucan.framework"
+  install_framework "Pods-startiosdev/XCGLogger.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "Pods-startiosdev/Alamofire.framework"
   install_framework "Pods-startiosdev/ChameleonFramework.framework"
   install_framework "Pods-startiosdev/DrawerController.framework"
-  install_framework "Pods-startiosdev/EasyAnimation.framework"
   install_framework "Pods-startiosdev/Permission.framework"
   install_framework "Pods-startiosdev/SnapKit.framework"
-  install_framework "Pods-startiosdev/Toucan.framework"
+  install_framework "Pods-startiosdev/XCGLogger.framework"
 fi

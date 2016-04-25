@@ -1,5 +1,4 @@
 PODS:
-  - Alamofire (3.1.4)
   - ChameleonFramework/Default (2.1.0)
   - ChameleonFramework/Swift (2.1.0):
     - ChameleonFramework/Default
@@ -9,27 +8,22 @@ PODS:
   - DrawerController/Core (1.1.0)
   - DrawerController/DrawerVisualStates (1.1.0):
     - DrawerController/Core
-  - EasyAnimation (1.0.4)
   - Permission (1.1)
   - SnapKit (0.19.1)
-  - Toucan (0.4.3)
+  - XCGLogger (3.3)
 
 DEPENDENCIES:
-  - Alamofire (~> 3.0)
   - ChameleonFramework/Swift
   - DrawerController
-  - EasyAnimation
   - Permission
   - SnapKit
-  - Toucan
+  - XCGLogger (~> 3.3)
 
 SPEC CHECKSUMS:
-  Alamofire: fbc829692f351fa1d8a31dd75fd7f7f56fea31fb
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   DrawerController: 8fd56e6238399a08c4af054fbea0ef8669cd81f3
-  EasyAnimation: 4aabd439b4038f48d72939cc19d6220363b3206e
   Permission: 13cddfbc73d8eeda701d9cfd4553c91e18ee420f
   SnapKit: eff58d6e3451bf2f482db2eccf86aecf371dc62d
-  Toucan: 3e2319c8fb9c7a2fb9c30f6d4ecdc6b8a2f1c92b
+  XCGLogger: d6e196e78940ff6daab17d6917107876f973fa31
 
 COCOAPODS: 0.39.0
